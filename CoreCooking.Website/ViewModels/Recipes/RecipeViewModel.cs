@@ -21,8 +21,9 @@ namespace CoreCooking.Website.ViewModels.Recipes
             this.Guid = item.Guid;
             this.CategoryGuid = item.CategoryGuid;
             this.Name = item.Name;
+            this.Serves = item.Serves;
             this.ImageUrl = item.ImageUrl;
-
+            
             this.Notes = item.Notes;
             this.Ingredients = new List<IngredientViewModel>();
             foreach (var line in item.Ingredients)
@@ -41,11 +42,14 @@ namespace CoreCooking.Website.ViewModels.Recipes
 
         public string Name { get; set; }
 
+        public int? Serves { get; set; }
+
         public string ImageUrl { get; set; }
 
         public string Notes { get; set; }
 
         public List<IngredientViewModel> Ingredients { get; set; }
+
         public List<string> Steps { get; set; }
     }
 }

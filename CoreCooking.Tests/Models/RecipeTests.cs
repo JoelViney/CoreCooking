@@ -42,7 +42,7 @@ namespace CoreCooking.Models
             // Arrange
             var repository = NewRepository();
             Category category = await CategoryTests.AssureCategoryExistsAsync();
-            var item = new Recipe() {  CategoryGuid = category.Guid, Name = "Test Recipe", IngredientsText =  "1 cup Test - Lightly chopped", StepsText = "Do Test" };
+            var item = new Recipe() {  CategoryGuid = category.Guid, Name = "Test Recipe", Serves = 4, IngredientsText =  "1 cup Test - Lightly chopped", StepsText = "Do Test" };
 
             // Act
             await repository.SaveAsync(item);
@@ -53,6 +53,7 @@ namespace CoreCooking.Models
             Assert.IsNotNull(item2);
             Assert.AreEqual(category.Guid, item2.CategoryGuid);
             Assert.AreEqual("Test Recipe", item2.Name);
+            Assert.AreEqual(4, item2.Serves);
             Assert.AreEqual("1 cup Test - Lightly chopped", item2.IngredientsText);
             Assert.AreEqual("Do Test", item2.StepsText);
         }

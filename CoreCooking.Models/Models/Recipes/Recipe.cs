@@ -23,6 +23,8 @@ namespace CoreCooking.Models.Recipes
         /// <summary>The title or brief heading of the Recipe.</summary>
         public string Name { get; set; }
 
+        public int? Serves { get; set; }
+
         public string ImageUrl { get; set; }
 
         public string StepsText { get; set; }

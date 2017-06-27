@@ -24,24 +24,61 @@
 <div class="row">
 
     <div class="container">
-        @if (Model.ImageUrl != null)
-        {
-        <div class="col-md-4">
-            <div class="panel">
-                <img id="imgUrl" src="@Url.Content(Model.ImageUrl)" class="img-responsive img-rounded" alt="@Url.Content(Model.ImageUrl)">
-            </div>
 
-            @if (!String.IsNullOrEmpty(Model.Notes))
-            {
-            <div class="panel panel-default">
-                <div class="panel-heading">Notes</div>
-                @(Model.Notes)
+        @if (Model.ImageUrl != null || Model.Serves != null || Model.Notes != null)
+        {
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                @if (Model.ImageUrl != null)
+                {
+                    <div class="panel">
+                        <img id="imgUrl" src="@Url.Content(Model.ImageUrl)" class="img-responsive img-rounded" alt="@Url.Content(Model.ImageUrl)">
+                    </div>
+                }
+
+                @if (Model.Serves != null)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <span asp-for="Serves">Serves: @(Model.Serves)</span>
+                        </div>
+                    </div>
+                }
+
+
+                @if (!String.IsNullOrEmpty(Model.Notes))
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Notes</div>
+                        <div class="panel-body">
+                            @(Model.Notes)
+                        </div>
+                    </div>
+                }
+
+                <div class="hidden-lg hidden-md hidden-xs">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Ingredients</div>
+                        <table class="table .table-condensed">
+                            @foreach (var item in Model.Ingredients)
+                            {
+                                <tr>
+                                    <td class="col-md-2"><span class="text-right" style="white-space: nowrap;">@(item.DisplayQuantityAndUom)</span></td>
+                                    <td>
+                                        @(item.Name)
+                                        @if (item.Directions != null)
+                                        {
+                                            <span> - @(item.Directions)</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
             </div>
-            }
-        </div>
         }
 
-        <div class="col-md-4">
+        <div class="col-md-4 hidden-sm col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Ingredients</div>
                 <table class="table .table-condensed">
@@ -62,7 +99,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Steps</div>
                 <ul class="list-group">

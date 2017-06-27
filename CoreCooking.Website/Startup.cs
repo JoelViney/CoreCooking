@@ -86,6 +86,12 @@ namespace CoreCooking.Website
 
             app.UseMvc(routes =>
             {
+                // IMage
+                routes.MapRoute(
+                    name: "images",
+                    template: "Images/UploadFile/{file?}",
+                    defaults: new { controller = "Images", action = "UploadFile" }
+                    );
                 // Accounts
                 routes.MapRoute(
                     name: "accounts",

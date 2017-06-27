@@ -12,6 +12,7 @@ using CoreCooking.Website.Models;
 using Microsoft.Extensions.Options;
 using CoreCooking.Website.Helpers;
 using CoreCooking.Models.Sites;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CoreCooking.Website.Controllers
 {
@@ -47,7 +48,6 @@ namespace CoreCooking.Website.Controllers
 
                 return View(viewModel);
             }
-
         }
 
         public async Task<IActionResult> Add(string categoryName)
@@ -59,7 +59,6 @@ namespace CoreCooking.Website.Controllers
 
             return View("Edit", viewModel);
         }
-
 
         public async Task<IActionResult> Edit(string categoryName, string name)
         {
@@ -92,6 +91,7 @@ namespace CoreCooking.Website.Controllers
         public async Task<IActionResult> Edit(RecipeEditViewModel viewModel)
         {
             Recipe item;
+            Category category;
             {
                 var repository = new RecipeRepository(_settings.AzureStorageConnectionString);
 
@@ -104,10 +104,13 @@ namespace CoreCooking.Website.Controllers
 
                 await repository.SaveAsync(item);
             }
+            {
+                var repository = new CategoryRepository(_settings.AzureStorageConnectionString);
+                category = await repository.GetAsync(item.CategoryGuid);
+            }
 
-            return RedirectToAction("View", "Recipes", new { guid = item.Guid });
+            return RedirectToAction("Details", "Recipes", new { categoryName = category.Name, name = item.Name });
         }
-
 
         public async Task<IActionResult> Delete(string categoryName, string name)
         {
@@ -134,17 +137,16 @@ namespace CoreCooking.Website.Controllers
         public async Task FillCategoriesViewBagAsync()
         {
             var repository = new CategoryRepository(_settings.AzureStorageConnectionString);
-
             var list = await repository.GetListAsync();
 
-            var viewModelList = new List<CategoryLineViewModel>();
+            var selectList = new List<SelectListItem>();
             foreach (var item in list)
             {
-                var viewModel = new CategoryLineViewModel(item);
-                viewModelList.Add(viewModel);
+                SelectListItem selectItem = new SelectListItem() { Text = item.Name, Value = item.Guid.ToString() };
+                selectList.Add(selectItem);
             }
 
-            ViewData.Add("Categorries", viewModelList);
+            ViewBag.Categories = selectList;
         }
     }
 }
