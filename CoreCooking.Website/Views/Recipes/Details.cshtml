@@ -1,0 +1,81 @@
+@model CoreCooking.Website.ViewModels.Recipes.RecipeViewModel
+@using CoreCooking.Website.Helpers
+
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="@UrlBuilder.GetCategoryUrl(Model)">@(Model.CategoryName)</a></li>
+    <li>@(Model.Name)</li>
+</ol>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-nav navbar-right">
+                <a href="@UrlBuilder.GetUrl(Model, "AddRecipe")" class="btn btn-default navbar-btn btn-sm">Add Recipe</a>
+                <a href="@UrlBuilder.GetUrl(Model, "Edit")" class="btn btn-default navbar-btn btn-sm">Edit Recipe</a>
+            </div>
+        </div>
+    </nav>
+}
+
+<h1>@(Model.Name)</h1>
+
+<div class="row">
+
+    <div class="container">
+        @if (Model.ImageUrl != null)
+        {
+        <div class="col-md-4">
+            <div class="panel">
+                <img id="imgUrl" src="@Url.Content(Model.ImageUrl)" class="img-responsive img-rounded" alt="@Url.Content(Model.ImageUrl)">
+            </div>
+
+            @if (!String.IsNullOrEmpty(Model.Notes))
+            {
+            <div class="panel panel-default">
+                <div class="panel-heading">Notes</div>
+                @(Model.Notes)
+            </div>
+            }
+        </div>
+        }
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Ingredients</div>
+                <table class="table .table-condensed">
+                    @foreach (var item in Model.Ingredients)
+                    {
+                        <tr>
+                            <td class="col-md-2"><span class="text-right" style="white-space: nowrap;">@(item.DisplayQuantityAndUom)</span></td>
+                            <td>
+                                @(item.Name)
+                                @if (item.Directions != null)
+                                {
+                                    <span> - @(item.Directions)</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Steps</div>
+                <ul class="list-group">
+                    @foreach (var item in Model.Steps)
+                    {
+                        @if (!String.IsNullOrEmpty(item))
+                        {
+                            <li class="list-group-item">@(item)</li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>

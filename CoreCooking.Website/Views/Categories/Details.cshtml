@@ -1,0 +1,30 @@
+@model CoreCooking.Website.ViewModels.Categories.CategoryViewModel
+@using CoreCooking.Website.Helpers
+
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li>@(Model.Name)</li>
+</ol>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-nav navbar-right">
+                <a href="@UrlBuilder.GetUrl(Model, "AddRecipe")" class="btn btn-default navbar-btn btn-sm">Add Recipe</a>
+                <a href="@UrlBuilder.GetUrl(Model, "Edit")" class="btn btn-default navbar-btn btn-sm">Edit Category</a>
+            </div>
+        </div>
+    </nav>
+}
+
+
+<h1>@(Model.Name)</h1>
+
+<div class="list-group">
+    @foreach (var item in Model.Lines)
+    {
+        <a href="@UrlBuilder.GetUrl(Model, item)" class="list-group-item">@Html.DisplayFor(x => item.Name)</a>
+    }
+</div>
+<br />
