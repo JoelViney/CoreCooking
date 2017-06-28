@@ -62,7 +62,8 @@
                     else
                     {
                         <a href="@UrlBuilder.GetUrl(Model, item)" class="thumbnail">
-                            <h3>@Html.DisplayFor(x => item.Name)</h3>
+                            <img id="imgUrl" src="~/images/blank.jpg" alt="Blank">
+                            <h3 class="image-text">@Html.DisplayFor(x => item.Name)</h3>
                         </a>
                     }
                 </div>

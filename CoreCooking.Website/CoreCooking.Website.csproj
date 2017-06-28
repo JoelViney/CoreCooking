@@ -16,6 +16,7 @@
   <ItemGroup>
     <Content Include="wwwroot\css\site.css" />
     <Content Include="wwwroot\favicon.ico" />
+    <Content Include="wwwroot\images\blank.jpg" />
     <Content Include="wwwroot\js\favicon.ico" />
   </ItemGroup>
   

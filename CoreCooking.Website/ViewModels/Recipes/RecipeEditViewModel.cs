@@ -57,7 +57,7 @@ namespace CoreCooking.Website.ViewModels.Recipes
         {
             item.Guid = this.Guid;
             item.CategoryGuid = this.CategoryGuid;
-            item.Name = this.Name;
+            item.Name = this.Name.Trim();
             item.Serves = this.Serves;
             item.ImageUrl = this.ImageUrl;
 

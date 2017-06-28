@@ -46,7 +46,7 @@ namespace CoreCooking.Models
                     site.Categories.Add(line);
                 }
 
-                line.Name = category.Name;
+                line.Name = category.Name.Trim();
             }
 
             await repository.SaveAsync(site);
@@ -88,7 +88,7 @@ namespace CoreCooking.Models
 
 
         [TestMethod]
-        public async Task GenerateCategoryRecipeLines()
+        public async Task GenerateCategoryRecipeReferences()
         {
             var recipeRepository = new RecipeRepository(SettingsFactory.GetConnectionString());
             List<Recipe> recipeList = await recipeRepository.GetListAsync();
@@ -113,11 +113,30 @@ namespace CoreCooking.Models
                         category.Recipes.Add(line);
                     }
                     line.ImageUrl = recipe.ImageUrl;
-                    line.Name = recipe.Name;
+                    line.Name = recipe.Name.Trim();
                 }
 
                 await repository.SaveAsync(category);
 
+            }
+        }
+
+
+
+
+        [TestMethod]
+        public async Task ClearnRecipe()
+        {
+            var repository = new RecipeRepository(SettingsFactory.GetConnectionString());
+            List<Recipe> recipeList = await repository.GetListAsync();
+
+            foreach (var recipe in recipeList)
+            {
+                if (recipe.Name != recipe.Name.Trim())
+                {
+                    recipe.Name = recipe.Name.Trim();
+                    await repository.SaveAsync(recipe);
+                }
             }
         }
     }
