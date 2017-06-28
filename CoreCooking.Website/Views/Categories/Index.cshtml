@@ -8,6 +8,7 @@
 <ol class="breadcrumb">
     <li><a href="/">Home</a></li>
 </ol>
+
 @if (User.Identity.IsAuthenticated)
 {
     <nav class="navbar navbar-default">
@@ -19,9 +20,10 @@
     </nav>
 }
 
+
 <div class="list-group">
     @foreach (var item in Model.Lines)
-    {
+            {
         <a href="@UrlBuilder.GetUrl(item)" class="list-group-item">@Html.DisplayFor(modelItem => item.Name)</a>
     }
 </div>

@@ -12,7 +12,7 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-nav navbar-right">
-                <a href="@UrlBuilder.GetUrl(Model, "AddRecipe")" class="btn btn-default navbar-btn btn-sm">Add Recipe</a>
+                <a href="@UrlBuilder.GetCategoryUrl(Model, "AddRecipe")" class="btn btn-default navbar-btn btn-sm">Add Recipe</a>
                 <a href="@UrlBuilder.GetUrl(Model, "Edit")" class="btn btn-default navbar-btn btn-sm">Edit Recipe</a>
             </div>
         </div>
@@ -31,7 +31,9 @@
                 @if (Model.ImageUrl != null)
                 {
                     <div class="panel">
-                        <img id="imgUrl" src="@Url.Content(Model.ImageUrl)" class="img-responsive img-rounded" alt="@Url.Content(Model.ImageUrl)">
+                        <div class="panel-body">
+                            <img id="imgUrl" src="@Url.Content(Model.ImageUrl)" class="img-responsive img-rounded" alt="@Url.Content(Model.ImageUrl)">
+                        </div>
                     </div>
                 }
 
@@ -55,64 +57,103 @@
                     </div>
                 }
 
-                <div class="hidden-lg hidden-md hidden-xs">
+                <div class="hidden-lg hidden-md col-sm-12 hidden-xs">
                     <div class="panel panel-default">
                         <div class="panel-heading">Ingredients</div>
                         <table class="table .table-condensed">
                             @foreach (var item in Model.Ingredients)
                             {
-                                <tr>
-                                    <td class="col-md-2"><span class="text-right" style="white-space: nowrap;">@(item.DisplayQuantityAndUom)</span></td>
-                                    <td>
-                                        @(item.Name)
-                                        @if (item.Directions != null)
+                            <tr>
+                                <td class="col-md-2"><span class="text-right" style="white-space: nowrap;">@(item.DisplayQuantityAndUom)</span></td>
+                                <td>
+                                    @(item.Name)
+                                    @if (item.Directions != null)
                                         {
-                                            <span> - @(item.Directions)</span>
+                                    <span> - @(item.Directions)</span>
                                         }
-                                    </td>
-                                </tr>
+                                </td>
+                            </tr>
                             }
                         </table>
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-4 hidden-sm col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Ingredients</div>
+                    <table class="table .table-condensed">
+                        @foreach (var item in Model.Ingredients)
+                        {
+                            <tr>
+                                <td class="col-md-2 text-right"><span style="white-space: nowrap;">@(item.DisplayQuantityAndUom)</span></td>
+                                <td>
+                                    @(item.Name)
+                                    @if (item.Directions != null)
+                                    {
+                                        <span> - @(item.Directions)</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Steps</div>
+                    <ul class="list-group">
+                        @foreach (var item in Model.Steps)
+                        {
+                            @if (!String.IsNullOrEmpty(item))
+                            {
+                                <li class="list-group-item">@(item)</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-sm-6 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Ingredients</div>
+                    <table class="table .table-condensed">
+                        @foreach (var item in Model.Ingredients)
+                        {
+                            <tr>
+                                <td class="col-md-2"><span class="text-right" style="white-space: nowrap;">@(item.DisplayQuantityAndUom)</span></td>
+                                <td>
+                                    @(item.Name)
+                                    @if (item.Directions != null)
+                                    {
+                                        <span> - @(item.Directions)</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Steps</div>
+                    <ul class="list-group">
+                        @foreach (var item in Model.Steps)
+                        {
+                            @if (!String.IsNullOrEmpty(item))
+                            {
+                                <li class="list-group-item">@(item)</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
         }
 
-        <div class="col-md-4 hidden-sm col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Ingredients</div>
-                <table class="table .table-condensed">
-                    @foreach (var item in Model.Ingredients)
-                    {
-                        <tr>
-                            <td class="col-md-2"><span class="text-right" style="white-space: nowrap;">@(item.DisplayQuantityAndUom)</span></td>
-                            <td>
-                                @(item.Name)
-                                @if (item.Directions != null)
-                                {
-                                    <span> - @(item.Directions)</span>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Steps</div>
-                <ul class="list-group">
-                    @foreach (var item in Model.Steps)
-                    {
-                        @if (!String.IsNullOrEmpty(item))
-                        {
-                            <li class="list-group-item">@(item)</li>
-                        }
-                    }
-                </ul>
-            </div>
-        </div>
 
     </div>
 </div>

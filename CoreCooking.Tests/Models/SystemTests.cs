@@ -1,5 +1,6 @@
 ﻿using CoreCooking.Data;
 using CoreCooking.Models.Categories;
+using CoreCooking.Models.Images;
 using CoreCooking.Models.Recipes;
 using CoreCooking.Models.Sites;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,7 +16,7 @@ namespace CoreCooking.Models
     public class SystemTests
     {
         [TestMethod]
-        public async Task GenerateSiteCategoryReferences()
+        public async Task CleanSiteReferences()
         {
             var repository = new SiteRepository(SettingsFactory.GetConnectionString());
             var site = await repository.GetAsync();
@@ -23,6 +24,18 @@ namespace CoreCooking.Models
             var categoryRepository = new CategoryRepository(SettingsFactory.GetConnectionString());
             var categoryList = await categoryRepository.GetListAsync();
 
+            // Delete Excessive References
+            for (int i = site.Categories.Count - 1; i >= 0; i--)
+            {
+                var reference = site.Categories[i];
+
+                if (!categoryList.Any(x => x.Guid == reference.Guid))
+                {
+                    site.Categories.Remove(reference);
+                }
+            }
+
+            // Add any unlinked references.
             foreach (var category in categoryList)
             {
                 CategoryReference line = site.Categories.Where(x => x.Guid == category.Guid).FirstOrDefault();
@@ -32,10 +45,45 @@ namespace CoreCooking.Models
                     line = new CategoryReference() { Guid = category.Guid };
                     site.Categories.Add(line);
                 }
+
                 line.Name = category.Name;
             }
 
             await repository.SaveAsync(site);
+        }
+
+
+        [TestMethod]
+        public async Task DeleteUnlinkedImages()
+        {
+            var siteRepository = new SiteRepository(SettingsFactory.GetConnectionString());
+            var site = await siteRepository.GetAsync();
+
+            var categoryRepository = new CategoryRepository(SettingsFactory.GetConnectionString());
+            var categoryList = await categoryRepository.GetListAsync();
+
+            var imageRepository = new ImageRepository(SettingsFactory.GetConnectionString());
+
+            var list = await imageRepository.GetFileNamesAsync();
+
+            foreach (var fileName in list)
+            {
+                bool found = false;
+                foreach (var category in categoryList)
+                {
+                    foreach (var recipe in category.Recipes)
+                    {
+                        if (recipe.ImageUrl != null && recipe.ImageUrl.Contains(fileName))
+                        {
+                            found = true;
+                        }
+                    }
+                }
+                if (!found)
+                {
+                    await imageRepository.DeleteAsync(fileName);
+                }
+            }
         }
 
 
@@ -64,7 +112,7 @@ namespace CoreCooking.Models
                         line = new RecipeReference() { Guid = recipe.Guid };
                         category.Recipes.Add(line);
                     }
-
+                    line.ImageUrl = recipe.ImageUrl;
                     line.Name = recipe.Name;
                 }
 

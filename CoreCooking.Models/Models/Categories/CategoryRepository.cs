@@ -22,9 +22,16 @@ namespace CoreCooking.Models.Categories
 
         }
 
+        public override async Task<Category> GetAsync(Guid guid)
+        {
+            var item = await base.GetAsync(guid);
+            item.Recipes = item.Recipes.OrderBy(o => o.Name).ToList();
+            return item;
+        }
+
         public override async Task DeleteAsync(Category item)
         {
-            await  base.DeleteAsync(item);
+            await base.DeleteAsync(item);
 
             // Update the reference values
             var siteRepository = new SiteRepository(this.ConnectionString);

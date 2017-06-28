@@ -8,5 +8,6 @@ namespace CoreCooking.Models.Categories
     {
         public Guid Guid { get; set; }
         public string Name { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

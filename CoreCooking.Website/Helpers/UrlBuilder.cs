@@ -35,9 +35,12 @@ namespace CoreCooking.Website.Helpers
         }
 
         // Category
-        public static string GetCategoryUrl(RecipeViewModel item)
+        public static string GetCategoryUrl(RecipeViewModel item, string action = null)
         {
-            return String.Format("/{0}", Encode(item.CategoryName));
+            if (action != null)
+                return String.Format("/{0}/{1}", Encode(item.CategoryName), action);
+            else
+                return String.Format("/{0}", Encode(item.CategoryName));
         }
 
         // Category

@@ -112,7 +112,7 @@ namespace CoreCooking.Data
         }
 
 
-        public async Task<Stream> GetStreamFile(string fileName)
+        public async Task<Stream> GetStreamFileAsync(string fileName)
         {
             CloudBlobContainer container = await this.GetContainerAsync();
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);

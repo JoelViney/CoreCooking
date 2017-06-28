@@ -18,13 +18,55 @@
     </nav>
 }
 
+<nav class="row pull-right">
+    <ul class="nav nav-pills nav-small">
+        <li role="presentation" class="active">
+            <a data-target="#list" data-toggle="tab">
+                <small><span class="glyphicon glyphicon glyphicon-th-list" aria-hidden="true"></span></small>
+            </a>
+        </li>
+        <li role="presentation">
+            <a data-target="#icons" data-toggle="tab">
+                <small><span class="glyphicon glyphicon glyphicon-th" aria-hidden="true"></span></small>
+            </a>
+        </li>
+    </ul>
+</nav>
 
 <h1>@(Model.Name)</h1>
 
-<div class="list-group">
-    @foreach (var item in Model.Lines)
-    {
-        <a href="@UrlBuilder.GetUrl(Model, item)" class="list-group-item">@Html.DisplayFor(x => item.Name)</a>
-    }
-</div>
 <br />
+
+<div class="tab-content">
+    <div class="tab-pane active" id="list">
+        <div class="list-group">
+            @foreach (var item in Model.Lines)
+            {
+                <a href="@UrlBuilder.GetUrl(Model, item)" class="list-group-item">@Html.DisplayFor(x => item.Name)</a>
+            }
+        </div>
+    </div>
+
+    <div class="tab-pane" id="icons">
+        <div class="row">
+            @foreach (var item in Model.Lines)
+            {
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    @if (item.ImageUrl != null)
+                    {
+                        <a href="@UrlBuilder.GetUrl(Model, item)" class="thumbnail">
+                            <img id="imgUrl" src="@Url.Content(item.ImageUrl)" alt="@Url.Content(item.ImageUrl)">
+                            <h3 class="image-text">@Html.DisplayFor(x => item.Name)</h3>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@UrlBuilder.GetUrl(Model, item)" class="thumbnail">
+                            <h3>@Html.DisplayFor(x => item.Name)</h3>
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

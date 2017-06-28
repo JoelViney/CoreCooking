@@ -12,6 +12,15 @@
   <ItemGroup>
     <None Remove="appsettings.json" />
     <None Remove="appsettings.UserSecrets.json" />
+    <None Remove="Data\Images\600x400.bmp" />
+    <None Remove="Data\Images\600x400.jpg" />
+    <None Remove="Data\Images\600x400.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\Images\600x400.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +28,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="appsettings.UserSecrets.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Images\600x400.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Images\600x400.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -42,5 +57,11 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0-msbuild3-final" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\Images\600x400.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

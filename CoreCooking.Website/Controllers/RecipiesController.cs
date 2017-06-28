@@ -57,6 +57,8 @@ namespace CoreCooking.Website.Controllers
 
             var viewModel = new RecipeEditViewModel(category, new Recipe());
 
+            await FillCategoriesViewBagAsync();
+
             return View("Edit", viewModel);
         }
 

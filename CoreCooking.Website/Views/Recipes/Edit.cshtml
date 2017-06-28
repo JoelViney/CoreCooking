@@ -66,16 +66,14 @@
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="form-group">
-                        <div class="pull-left">
-                            <img id="imgUrl" src="@Url.Content(Model.ImageUrl)" class="img-responsive img-rounded" style="max-width: 250px;" alt="@Url.Content(Model.ImageUrl)">
-                            <div>
-                                <span class="btn btn-default btn-file image-button">
-                                    Upload Image<input type="file" id="uploadFileInput">
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                    <img id="imgControl" src="@Url.Content(Model.ImageUrl)" class="img-responsive img-rounded" style="max-width: 250px;" alt="@Url.Content(Model.ImageUrl)" />
+                </div>
+                <div class="panel-footer">
+                    <span id="uploadFileButton" class="btn btn-default btn-file">
+                        Upload<input type="file" id="uploadFileInput">
+                    </span>
+
+                    <button id="deleteFileButton" type="button" class="btn btn-default">Delete</button>
                 </div>
             </div>
         </div>
@@ -124,9 +122,33 @@
 @section Scripts {
     <script type='text/javascript'>
 
+
+        $('#deleteFileButton').on('click', function (e) {
+            deleteFile(e);
+        });
+
         $('#uploadFileInput').on('change', function (e) {
             uploadFile(e);
         });
+
+        function disableForm() {
+            $("body").css("cursor", "progress");
+
+            $('button').attr('disabled', true);
+            $('a').attr('disabled', true);
+        }
+
+        function enableForm() {
+            $("body").css("cursor", "default");
+        }
+
+        function deleteFile(e) {
+            disableForm();
+            $("#imgControl").attr("src", "");
+            $("#imgControl").attr("alt", "");
+            $("#ImageUrl").val("");
+            enableForm();
+        }
 
         function uploadFile(e) {
             var files = e.target.files;
@@ -136,6 +158,8 @@
                     var formData = new FormData();
                     formData.append("file", files[0]);
 
+                    disableForm();
+
                     $.ajax({
                         type: "POST",
                         url: '/Images/UploadFile',
@@ -143,12 +167,14 @@
                         processData: false,
                         data: formData,
                         success: function (result) {
+                            enableForm();
                             console.log(result);
-                            $("#imgUrl").attr("src", result.url);
-                            $("#imgUrl").attr("alt", result.url);
+                            $("#imgControl").attr("src", result.url);
+                            $("#imgControl").attr("alt", result.url);
                             $("#ImageUrl").val(result.url);
                         },
                         error: function (xhr, status, p3, p4) {
+                            enableForm();
                             var err = "Error " + " " + status + " " + p3 + " " + p4;
                             if (xhr.responseText && xhr.responseText[0] == "{")
                                 err = JSON.parse(xhr.responseText).Message;

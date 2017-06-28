@@ -86,48 +86,74 @@ namespace CoreCooking.Website
 
             app.UseMvc(routes =>
             {
-                // IMage
+                //
+                // /Image
+                //
                 routes.MapRoute(
                     name: "images",
                     template: "Images/UploadFile/{file?}",
                     defaults: new { controller = "Images", action = "UploadFile" }
                     );
-                // Accounts
+
+                //
+                // /Accounts
+                //
                 routes.MapRoute(
                     name: "accounts",
                     template: "Accounts/{action}/{returnUrl?}",
                     defaults: new { controller = "Accounts", action = "Login" }
                     );
 
-                // localhost/Categories/Add
+                // This needs to be before
+                routes.MapRoute(
+                    name: "recipesEditOnAdd",
+                    template: "Recipes/Edit",
+                    defaults: new { controller = "Recipes", action = "Edit" }
+                    );
+
+                //
+                // Categories
+                // 
+                // /AddCategory
                 routes.MapRoute(
                     name: "categoriesAdd",
                     template: "AddCategory",
                     defaults: new { controller = "Categories", action = "Add" }
                     );
 
-                // localhost/Beef/Edit
+                // /Beef/Edit
                 routes.MapRoute(
                     name: "categoriesEdit",
                     template: "{name}/Edit",
                     defaults: new { controller = "Categories", action = "Edit" }
                     );
 
-                // localhost/Beef/Delete
+                // /Beef/Delete
                 routes.MapRoute(
                     name: "categoriesDelete",
                     template: "{name}/Delete",
                     defaults: new { controller = "Categories", action = "Delete" }
                     );
 
-                // localhost/Categories/Add
+
+                //
+                // Recipes
+                // 
+                // /Beef/AddRecipe
                 routes.MapRoute(
                     name: "recipesAdd",
                     template: "{categoryName}/AddRecipe",
                     defaults: new { controller = "Recipes", action = "Add" }
                     );
 
-                // localhost/Chicken/Honey_Chicken
+                // /Beef/Edit
+                routes.MapRoute(
+                    name: "recipesEdit",
+                    template: "{categoryName}/Edit",
+                    defaults: new { controller = "Recipes", action = "Edit" }
+                    );
+
+                // /Beef/Honey_Chicken
                 routes.MapRoute(
                     name: "recipes",
                     template: "{categoryName}/{name}/{action?}",
