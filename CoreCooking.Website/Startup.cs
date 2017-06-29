@@ -90,6 +90,15 @@ namespace CoreCooking.Website
                 // /Image
                 //
                 routes.MapRoute(
+                    name: "test",
+                    template: "Test",
+                    defaults: new { controller = "Test", action = "Index" }
+                    );
+
+                //
+                // /Image
+                //
+                routes.MapRoute(
                     name: "images",
                     template: "Images/UploadFile/{file?}",
                     defaults: new { controller = "Images", action = "UploadFile" }

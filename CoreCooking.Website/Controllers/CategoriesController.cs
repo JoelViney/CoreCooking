@@ -38,13 +38,28 @@ namespace CoreCooking.Website.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Details(string name)
+        public async Task<IActionResult> Details(string name, bool? viewIcons = null)
         {
             var repository = new CategoryRepository(_settings.AzureStorageConnectionString);
             var item = await repository.SearchAsync(name);
 
             var viewModel = new CategoryViewModel(item);
 
+            if (viewIcons == null)
+            {
+                if (this.Request.Cookies.ContainsKey("RecipeViewIcons"))
+                    // Load default from cookie.
+                    viewIcons = this.Request.Cookies["RecipeViewIcons"] == "true";
+                else
+                    viewIcons  = false;
+            }
+            else
+            {
+                // Save to cookie
+                this.Response.Cookies.Append("RecipeViewIcons", "true");
+            }
+
+            ViewBag.ViewIcons = viewIcons;
             return View(viewModel);
         }
 

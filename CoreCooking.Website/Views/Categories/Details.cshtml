@@ -18,27 +18,60 @@
     </nav>
 }
 
-<nav class="row pull-right">
-    <ul class="nav nav-pills nav-small">
-        <li role="presentation" class="active">
-            <a data-target="#list" data-toggle="tab">
-                <small><span class="glyphicon glyphicon glyphicon-th-list" aria-hidden="true"></span></small>
-            </a>
-        </li>
-        <li role="presentation">
-            <a data-target="#icons" data-toggle="tab">
-                <small><span class="glyphicon glyphicon glyphicon-th" aria-hidden="true"></span></small>
-            </a>
-        </li>
-    </ul>
-</nav>
+@if (ViewBag.ViewIcons)
+{
+    <nav class="row pull-right btn-group">
+        <a href="@UrlBuilder.GetUrl(Model)?viewIcons=false" class="btn navbar-btn btn-sm btn-default">
+            <span class="glyphicon glyphicon glyphicon-th-list" aria-hidden="true"></span>
+        </a>
+        <button class="btn navbar-btn btn-sm btn-default disabled" style="background-color: #D5D8DC;" disabled>
+            <span class="glyphicon glyphicon glyphicon-th-large" aria-hidden="true"></span>
+        </button>
+    </nav>
+}
+else
+{
+    <nav class="row pull-right btn-group">
+        <div class="btn navbar-btn btn-sm btn-default disabled" style="background-color: #D5D8DC;">
+            <span class="glyphicon glyphicon glyphicon-th-list" aria-hidden="true"></span>
+        </div>
+        <a href="@UrlBuilder.GetUrl(Model)?viewIcons=true" class="btn navbar-btn btn-sm btn-default">
+            <span class="glyphicon glyphicon glyphicon-th-large" aria-hidden="true"></span>
+        </a>
+    </nav>
+}
 
 <h1>@(Model.Name)</h1>
 
 <br />
 
-<div class="tab-content">
-    <div class="tab-pane active" id="list">
+@if (ViewBag.ViewIcons)
+{
+    <div class="row">
+        @foreach (var item in Model.Lines)
+        {
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                @if (item.ImageUrl != null)
+                {
+                    <a href="@UrlBuilder.GetUrl(Model, item)" class="thumbnail">
+                        <img id="imgUrl" src="@Url.Content(item.ImageUrl)" alt="@Url.Content(item.ImageUrl)">
+                        <h3 class="image-text">@Html.DisplayFor(x => item.Name)</h3>
+                    </a>
+                }
+                else
+                {
+                    <a href="@UrlBuilder.GetUrl(Model, item)" class="thumbnail">
+                        <img id="imgUrl" src="~/images/blank.jpg" alt="Blank">
+                        <h3 class="image-text">@Html.DisplayFor(x => item.Name)</h3>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="row">
         <div class="list-group">
             @foreach (var item in Model.Lines)
             {
@@ -46,28 +79,5 @@
             }
         </div>
     </div>
+}
 
-    <div class="tab-pane" id="icons">
-        <div class="row">
-            @foreach (var item in Model.Lines)
-            {
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    @if (item.ImageUrl != null)
-                    {
-                        <a href="@UrlBuilder.GetUrl(Model, item)" class="thumbnail">
-                            <img id="imgUrl" src="@Url.Content(item.ImageUrl)" alt="@Url.Content(item.ImageUrl)">
-                            <h3 class="image-text">@Html.DisplayFor(x => item.Name)</h3>
-                        </a>
-                    }
-                    else
-                    {
-                        <a href="@UrlBuilder.GetUrl(Model, item)" class="thumbnail">
-                            <img id="imgUrl" src="~/images/blank.jpg" alt="Blank">
-                            <h3 class="image-text">@Html.DisplayFor(x => item.Name)</h3>
-                        </a>
-                    }
-                </div>
-            }
-        </div>
-    </div>
-</div>
