@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using CoreCooking.Models.Categories;
-using CoreCooking.Website.ViewModels.Categories;
 using CoreCooking.Website.ViewModels.Recipes;
 using CoreCooking.Website.Models;
 using Microsoft.Extensions.Options;
+using CoreCooking.Models.Sites;
+using CoreCooking.Website.ViewModels.Home;
 
 namespace CoreCooking.Website.Controllers
 {
@@ -20,5 +20,17 @@ namespace CoreCooking.Website.Controllers
         {
             this._settings = settings.Value;
         }
+
+
+        public async Task<IActionResult> Index(bool? viewHashtags = null)
+        {
+            var repository = new SiteRepository(_settings.AzureStorageConnectionString);
+            var site = await repository.GetAsync();
+                       
+            var viewModel = new HomeViewModel(site);
+
+            return View(viewModel);
+        }
+
     }
 }

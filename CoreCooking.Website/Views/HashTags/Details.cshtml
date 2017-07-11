@@ -1,4 +1,4 @@
-@model CoreCooking.Website.ViewModels.Categories.CategoryViewModel
+@model CoreCooking.Website.ViewModels.Hashtags.HashtagDetailsViewModel
 @using CoreCooking.Website.Helpers
 
 <ol class="breadcrumb">
@@ -12,7 +12,6 @@
         <div class="container-fluid">
             <div class="navbar-nav navbar-right">
                 <a href="@UrlBuilder.GetUrl(Model, "AddRecipe")" class="btn btn-default navbar-btn btn-sm">Add Recipe</a>
-                <a href="@UrlBuilder.GetUrl(Model, "Edit")" class="btn btn-default navbar-btn btn-sm">Edit Category</a>
             </div>
         </div>
     </nav>

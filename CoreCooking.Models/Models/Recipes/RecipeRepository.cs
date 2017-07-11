@@ -4,9 +4,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Linq;
-using CoreCooking.Models.Categories;
 using CoreCooking.Models.Images;
 using System.IO;
+using CoreCooking.Models.Sites;
 
 namespace CoreCooking.Models.Recipes
 {
@@ -28,35 +28,19 @@ namespace CoreCooking.Models.Recipes
 
             await base.SaveAsync(item);
 
-            var repository = new CategoryRepository(this.ConnectionString);
-
-            // Update Old Category?
+            // Update old Hashtags?
             if (existing != null)
             {
-                await RemoveCategoryReference(existing);
+                await RemoveReference(existing);
 
                 if (existing.ImageUrl != null && existing.ImageUrl != item.ImageUrl)
                 {
                     await RemoveImage(existing);
                 }
             }
-            
-            // Update new Category
-            {
-                var category = await repository.GetAsync(item.CategoryGuid);
 
-                var line = category.Recipes.Where(x => x.Guid == item.Guid).FirstOrDefault();
-                if (line == null)
-                {
-                    line = new RecipeReference() { Guid = item.Guid };
-                    category.Recipes.Add(line);
-                    category.Recipes = category.Recipes.OrderBy(o => o.Name).ToList();
-                }
-                line.Name = item.Name;
-                line.ImageUrl = item.ImageUrl;
-
-                await repository.SaveAsync(category);
-            }
+            // Update new Hashtags
+            await AddReference(item);
         }
 
         public override async Task DeleteAsync(Recipe item)
@@ -64,7 +48,7 @@ namespace CoreCooking.Models.Recipes
             await base.DeleteAsync(item);
 
             // Remove the reference from the Category
-            await RemoveCategoryReference(item);
+            await RemoveReference(item);
         }
 
         private async Task RemoveImage(Recipe item)
@@ -77,17 +61,45 @@ namespace CoreCooking.Models.Recipes
             await repository.DeleteAsync(fileName);
         }
 
-        private async Task RemoveCategoryReference(Recipe item)
+        private async Task AddReference(Recipe item)
         {
-            var repository = new CategoryRepository(this.ConnectionString);
-            var category = await repository.GetAsync(item.CategoryGuid);
-
-            RecipeReference line = category.Recipes.Where(x => x.Guid == item.Guid).FirstOrDefault();
-            if (line != null)
+            // Update Site
             {
-                category.Recipes.Remove(line);
-                await repository.SaveAsync(category);
+                var repository = new SiteRepository(this.ConnectionString);
+                var site = await repository.GetAsync();
+
+                var line = site.Recipes.Where(x => x.Guid == item.Guid).FirstOrDefault();
+                if (line == null)
+                {
+                    line = new RecipeIndex() { Guid = item.Guid };
+                    site.Recipes.Add(line);
+                    site.Recipes = site.Recipes.OrderBy(o => o.Name).ToList();
+                }
+                line.Name = item.Name;
+                line.HashtagsString = item.HashtagsString;
+                line.ImageUrl = item.ImageUrl;
+
+                await repository.SaveAsync(site);
             }
+
+        }
+
+        private async Task RemoveReference(Recipe item)
+        {
+            // Site
+            {
+                var repository = new SiteRepository(this.ConnectionString);
+                var site = await repository.GetAsync();
+
+                RecipeIndex line = site.Recipes.Where(x => x.Guid == item.Guid).FirstOrDefault();
+
+                if (line != null)
+                {
+                    site.Recipes.Remove(line);
+                    await repository.SaveAsync(site);
+                }
+            }
+
         }
     }
 }

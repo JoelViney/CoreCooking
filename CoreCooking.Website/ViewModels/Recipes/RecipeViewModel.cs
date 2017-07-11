@@ -1,5 +1,4 @@
 ﻿using CoreCooking.Models;
-using CoreCooking.Models.Categories;
 using CoreCooking.Models.Recipes;
 using System;
 using System.Collections.Generic;
@@ -16,11 +15,13 @@ namespace CoreCooking.Website.ViewModels.Recipes
 
         }
 
-        public RecipeViewModel(Category category, Recipe item)
+        public RecipeViewModel(string hashtag, Recipe item)
         {
+            this.Hashtag = hashtag;
+
             this.Guid = item.Guid;
-            this.CategoryGuid = item.CategoryGuid;
             this.Name = item.Name;
+            this.Hashtags = item.GetHashtags();
             this.Serves = item.Serves;
             this.ImageUrl = item.ImageUrl;
             
@@ -33,14 +34,15 @@ namespace CoreCooking.Website.ViewModels.Recipes
             }
 
             this.Steps = item.Steps;
-
-            this.CategoryName = category.Name;
         }
 
-        public Guid CategoryGuid { get; set; }
-        public string CategoryName { get; set; }
+        /// <summary>The parent Hashtag that defines where the user came from to view this Recipe</summary>
+        public string Hashtag { get; set; }
 
         public string Name { get; set; }
+
+        [Display(Name = "Hashtags")]
+        public List<string> Hashtags { get; set; }
 
         public int? Serves { get; set; }
 

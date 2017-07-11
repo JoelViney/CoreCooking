@@ -3,7 +3,7 @@
 
 <ol class="breadcrumb">
     <li><a href="/">Home</a></li>
-    <li><a href="@UrlBuilder.GetCategoryUrl(Model)">@(Model.CategoryName)</a></li>
+    <li><a href="@UrlBuilder.GetUrl(Model.Hashtag)">@(Model.Hashtag)</a></li>
     <li>@(Model.Name)</li>
 </ol>
 
@@ -12,7 +12,7 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-nav navbar-right">
-                <a href="@UrlBuilder.GetCategoryUrl(Model, "AddRecipe")" class="btn btn-default navbar-btn btn-sm">Add Recipe</a>
+                <a href="@UrlBuilder.GetUrl(Model.Hashtag, "AddRecipe")" class="btn btn-default navbar-btn btn-sm">Add Recipe</a>
                 <a href="@UrlBuilder.GetUrl(Model, "Edit")" class="btn btn-default navbar-btn btn-sm">Edit Recipe</a>
             </div>
         </div>
@@ -20,6 +20,13 @@
 }
 
 <h1>@(Model.Name)</h1>
+
+<h5>
+    @foreach (var hashtag in Model.Hashtags)
+    {
+        <a href="@UrlBuilder.GetUrl(hashtag)">#@hashtag</a><span>&nbsp;</span>
+    }
+</h5>
 
 <div class="row">
 

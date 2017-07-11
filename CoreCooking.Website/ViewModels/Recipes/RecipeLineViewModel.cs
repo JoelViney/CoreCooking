@@ -1,6 +1,6 @@
 ﻿using CoreCooking.Models;
-using CoreCooking.Models.Categories;
 using CoreCooking.Models.Recipes;
+using CoreCooking.Models.Sites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace CoreCooking.Website.ViewModels.Recipes
 {
     public class RecipeLineViewModel
     {
-        public RecipeLineViewModel(RecipeReference item)
+        public RecipeLineViewModel(RecipeIndex item)
         {
             this.Guid = item.Guid;
             this.Name = item.Name;

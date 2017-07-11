@@ -1,4 +1,4 @@
-﻿@model CoreCooking.Website.ViewModels.Categories.CategoryListViewModel
+@model CoreCooking.Website.ViewModels.Home.HomeViewModel
 @using CoreCooking.Website.Helpers
 
 @{
@@ -22,7 +22,7 @@
 
 
 <div class="list-group">
-    @foreach (var item in Model.Lines)
+    @foreach (var item in Model.Hashtags)
     {
         <a href="@UrlBuilder.GetUrl(item)" class="list-group-item">@Html.DisplayFor(modelItem => item.Name)</a>
     }

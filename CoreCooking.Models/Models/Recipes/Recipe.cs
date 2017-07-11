@@ -23,6 +23,9 @@ namespace CoreCooking.Models.Recipes
         /// <summary>The title or brief heading of the Recipe.</summary>
         public string Name { get; set; }
 
+        /// <summary>The tags that define the recipe delimited by # the character.</summary>
+        public string HashtagsString { get; set; }
+
         public int? Serves { get; set; }
 
         public string ImageUrl { get; set; }
@@ -51,6 +54,24 @@ namespace CoreCooking.Models.Recipes
 
             IngredientParser parser = new IngredientParser();
             this.Ingredients = parser.Parse(this.IngredientsText);
+        }
+
+
+        public List<string> GetHashtags()
+        {
+            var list = new List<string>();
+
+            var words = this.HashtagsString.Split('#');
+
+            foreach (var word in words)
+            {
+                if (!String.IsNullOrWhiteSpace(word))
+                {
+                    list.Add(word.Trim());
+                }
+            }
+
+            return list;
         }
     }
 }

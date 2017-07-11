@@ -87,7 +87,7 @@ namespace CoreCooking.Website
             app.UseMvc(routes =>
             {
                 //
-                // /Image
+                // /Test
                 //
                 routes.MapRoute(
                     name: "test",
@@ -113,73 +113,52 @@ namespace CoreCooking.Website
                     defaults: new { controller = "Accounts", action = "Login" }
                     );
 
-                // This needs to be before
+
+
+                //
+                // Recipes
+                // 
+
+
+                // /Recipes/Edit
                 routes.MapRoute(
                     name: "recipesEditOnAdd",
                     template: "Recipes/Edit",
                     defaults: new { controller = "Recipes", action = "Edit" }
                     );
 
-                //
-                // Categories
-                // 
-                // /AddCategory
-                routes.MapRoute(
-                    name: "categoriesAdd",
-                    template: "AddCategory",
-                    defaults: new { controller = "Categories", action = "Add" }
-                    );
-
-                // /Beef/Edit
-                routes.MapRoute(
-                    name: "categoriesEdit",
-                    template: "{name}/Edit",
-                    defaults: new { controller = "Categories", action = "Edit" }
-                    );
-
-                // /Beef/Delete
-                routes.MapRoute(
-                    name: "categoriesDelete",
-                    template: "{name}/Delete",
-                    defaults: new { controller = "Categories", action = "Delete" }
-                    );
-
-
-                //
-                // Recipes
-                // 
                 // /Beef/AddRecipe
                 routes.MapRoute(
                     name: "recipesAdd",
-                    template: "{categoryName}/AddRecipe",
+                    template: "{hashtag}/AddRecipe",
                     defaults: new { controller = "Recipes", action = "Add" }
                     );
 
                 // /Beef/Edit
                 routes.MapRoute(
                     name: "recipesEdit",
-                    template: "{categoryName}/Edit",
+                    template: "{hashtag}/Edit",
                     defaults: new { controller = "Recipes", action = "Edit" }
                     );
 
                 // /Beef/Honey_Chicken
                 routes.MapRoute(
                     name: "recipes",
-                    template: "{categoryName}/{name}/{action?}",
+                    template: "{hashtag}/{name}/{action?}",
                     defaults: new { controller = "Recipes", action = "Details" }
                     );
 
                 // localhost/Beef
                 routes.MapRoute(
-                    name: "categories",
+                    name: "hashtags",
                     template: "{name}/{action?}",
-                    defaults: new { controller = "Categories", action = "Details" }
+                    defaults: new { controller = "Hashtags", action = "Details" }
                     );
 
                 // localhost/
                 routes.MapRoute(
                         name: "default",
-                        template: "{controller=Categories}/{action=Index}");
+                        template: "{controller=Home}/{action=Index}");
 
 
             });

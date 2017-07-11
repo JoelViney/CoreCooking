@@ -3,14 +3,14 @@
 
 <ol class="breadcrumb">
     <li><a href="/">Home</a></li>
-    <li><a href="@UrlBuilder.GetCategoryUrl(Model)">@(Model.CategoryName)</a></li>
+    <li><a href="@UrlBuilder.GetUrl(Model.Hashtag)">@(Model.Hashtag)</a></li>
     @if (Model.IsNew())
     {
         <li>Add Recipe</li>
     }
     else
     {
-        <li><a href="/Recipes/View?guid=@(Model.Guid)">@(Model.Name)</a></li>
+        <li><a href="@UrlBuilder.GetUrl(Model)">@(Model.Name)</a></li>
         <li>Edit</li>
     }
 </ol>
@@ -29,7 +29,7 @@
                 <input type="submit" value="Save" class="btn btn-default btn-sm" />
                 @if (Model.IsNew())
                 {
-                    <a href="@UrlBuilder.GetCategoryUrl(Model)" class="btn btn-default navbar-btn btn-sm">Cancel</a>
+                    <a href="@UrlBuilder.GetUrl(Model.Hashtag)" class="btn btn-default navbar-btn btn-sm">Cancel</a>
                 }
                 else
                 {
@@ -43,6 +43,16 @@
 
     <input asp-for="ImageUrl" type="hidden">
     <input asp-for="Guid" type="hidden">
+    <input asp-for="Hashtag" type="hidden">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="HashtagsString" class="col-md-2 control-label"></label>
+                <input asp-for="HashtagsString" class="form-control" />
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-6">
@@ -50,12 +60,6 @@
                 <label asp-for="Name" class="col-md-2 control-label"></label>
                 <input asp-for="Name" class="form-control" />
             </div>
-
-            <div class="form-group">
-                <label asp-for="CategoryGuid" class="col-md-2 control-label"></label>
-                <select asp-for="CategoryGuid" asp-items="ViewBag.Categories" class="form-control"></select>
-            </div>
-
 
             <div class="form-group">
                 <label asp-for="Serves" class="col-md-2 control-label"></label>

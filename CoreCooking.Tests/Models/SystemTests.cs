@@ -1,5 +1,4 @@
 ﻿using CoreCooking.Data;
-using CoreCooking.Models.Categories;
 using CoreCooking.Models.Images;
 using CoreCooking.Models.Recipes;
 using CoreCooking.Models.Sites;
@@ -16,40 +15,46 @@ namespace CoreCooking.Models
     public class SystemTests
     {
         [TestMethod]
-        public async Task CleanSiteReferences()
+        public async Task Temp()
         {
-            var repository = new SiteRepository(SettingsFactory.GetConnectionString());
-            var site = await repository.GetAsync();
+            var siteRepository = new SiteRepository(SettingsFactory.GetConnectionString());
+            var site = await siteRepository.GetAsync();
 
-            var categoryRepository = new CategoryRepository(SettingsFactory.GetConnectionString());
-            var categoryList = await categoryRepository.GetListAsync();
+            var recipeRepository = new RecipeRepository(SettingsFactory.GetConnectionString());
+            List<Recipe> recipeList = await recipeRepository.GetListAsync();
 
-            // Delete Excessive References
-            for (int i = site.Categories.Count - 1; i >= 0; i--)
+            foreach (var item in recipeList)
             {
-                var reference = site.Categories[i];
-
-                if (!categoryList.Any(x => x.Guid == reference.Guid))
-                {
-                    site.Categories.Remove(reference);
-                }
+                await recipeRepository.SaveAsync(item);
             }
+            int i = 0;
+        }
 
-            // Add any unlinked references.
-            foreach (var category in categoryList)
+
+        [TestMethod]
+        public async Task UpdateSiteRecipeIndexes()
+        {
+            var siteRepository = new SiteRepository(SettingsFactory.GetConnectionString());
+            var site = await siteRepository.GetAsync();
+
+            var recipeRepository = new RecipeRepository(SettingsFactory.GetConnectionString());
+            List<Recipe> recipeList = await recipeRepository.GetListAsync();
+
+            foreach (var item in recipeList)
             {
-                CategoryReference line = site.Categories.Where(x => x.Guid == category.Guid).FirstOrDefault();
-
+                var line = site.Recipes.Where(x => x.Guid == item.Guid).FirstOrDefault();
                 if (line == null)
                 {
-                    line = new CategoryReference() { Guid = category.Guid };
-                    site.Categories.Add(line);
+                    line = new RecipeIndex() { Guid = item.Guid };
+                    site.Recipes.Add(line);
+                    site.Recipes = site.Recipes.OrderBy(o => o.Name).ToList();
                 }
-
-                line.Name = category.Name.Trim();
+                line.Name = item.Name;
+                line.HashtagsString = item.HashtagsString;
+                line.ImageUrl = item.ImageUrl;
             }
 
-            await repository.SaveAsync(site);
+            await siteRepository.SaveAsync(site);
         }
 
 
@@ -59,9 +64,6 @@ namespace CoreCooking.Models
             var siteRepository = new SiteRepository(SettingsFactory.GetConnectionString());
             var site = await siteRepository.GetAsync();
 
-            var categoryRepository = new CategoryRepository(SettingsFactory.GetConnectionString());
-            var categoryList = await categoryRepository.GetListAsync();
-
             var imageRepository = new ImageRepository(SettingsFactory.GetConnectionString());
 
             var list = await imageRepository.GetFileNamesAsync();
@@ -69,59 +71,21 @@ namespace CoreCooking.Models
             foreach (var fileName in list)
             {
                 bool found = false;
-                foreach (var category in categoryList)
+               
+                foreach (var recipe in site.Recipes)
                 {
-                    foreach (var recipe in category.Recipes)
+                    if (recipe.ImageUrl != null && recipe.ImageUrl.Contains(fileName))
                     {
-                        if (recipe.ImageUrl != null && recipe.ImageUrl.Contains(fileName))
-                        {
-                            found = true;
-                        }
+                        found = true;
                     }
                 }
+
                 if (!found)
                 {
                     await imageRepository.DeleteAsync(fileName);
                 }
             }
         }
-
-
-        [TestMethod]
-        public async Task GenerateCategoryRecipeReferences()
-        {
-            var recipeRepository = new RecipeRepository(SettingsFactory.GetConnectionString());
-            List<Recipe> recipeList = await recipeRepository.GetListAsync();
-
-            var repository = new CategoryRepository(SettingsFactory.GetConnectionString());
-
-            var categoryList = await repository.GetListAsync();
-            foreach (var category in categoryList)
-            {
-                var filteredList = recipeList.Where(x => x.CategoryGuid == category.Guid).ToList();
-
-                foreach (var recipe in filteredList)
-                {
-                    RecipeReference line;
-                    if (category.Recipes.Any(x => x.Guid == recipe.Guid))
-                    {
-                        line = category.Recipes.Where(x => x.Guid == recipe.Guid).FirstOrDefault();
-                    }
-                    else
-                    {
-                        line = new RecipeReference() { Guid = recipe.Guid };
-                        category.Recipes.Add(line);
-                    }
-                    line.ImageUrl = recipe.ImageUrl;
-                    line.Name = recipe.Name.Trim();
-                }
-
-                await repository.SaveAsync(category);
-
-            }
-        }
-
-
 
 
         [TestMethod]

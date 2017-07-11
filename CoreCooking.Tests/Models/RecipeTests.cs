@@ -1,5 +1,4 @@
 ﻿using CoreCooking.Data;
-using CoreCooking.Models.Categories;
 using CoreCooking.Models.Recipes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -22,12 +21,9 @@ namespace CoreCooking.Models
             return repository;
         }
 
-        public static async Task<Recipe> AssureRecipeExistsAsync(RecipeRepository repository, Category category = null)
+        public static async Task<Recipe> AssureRecipeExistsAsync(RecipeRepository repository)
         {
-            if (category == null)
-                category = await CategoryTests.AssureCategoryExistsAsync();
-
-            var item = new Recipe() { CategoryGuid = category.Guid, Name = "Test" };
+            var item = new Recipe() { Name = "Test" };
 
             await repository.SaveAsync(item);
 
@@ -36,27 +32,6 @@ namespace CoreCooking.Models
 
         #endregion
 
-        [TestMethod]
-        public async Task CreateRecipeAsync()
-        {
-            // Arrange
-            var repository = NewRepository();
-            Category category = await CategoryTests.AssureCategoryExistsAsync();
-            var item = new Recipe() {  CategoryGuid = category.Guid, Name = "Test Recipe", Serves = 4, IngredientsText =  "1 cup Test - Lightly chopped", StepsText = "Do Test" };
-
-            // Act
-            await repository.SaveAsync(item);
-
-            // Assert
-            var item2 = await repository.GetAsync(item.Guid);
-
-            Assert.IsNotNull(item2);
-            Assert.AreEqual(category.Guid, item2.CategoryGuid);
-            Assert.AreEqual("Test Recipe", item2.Name);
-            Assert.AreEqual(4, item2.Serves);
-            Assert.AreEqual("1 cup Test - Lightly chopped", item2.IngredientsText);
-            Assert.AreEqual("Do Test", item2.StepsText);
-        }
 
 
         [TestMethod]

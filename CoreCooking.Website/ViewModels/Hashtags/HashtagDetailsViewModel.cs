@@ -1,44 +1,34 @@
-﻿using CoreCooking.Models.Categories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CoreCooking.Website.ViewModels.Categories;
 using CoreCooking.Website.ViewModels.Recipes;
+using CoreCooking.Models.Sites;
 
-namespace CoreCooking.Website.ViewModels.Categories
+namespace CoreCooking.Website.ViewModels.Hashtags
 {
-    public class CategoryViewModel : ViewModelBase
+    public class HashtagDetailsViewModel
     {
         public string Name { get; set; }
 
         public List<RecipeLineViewModel> Lines { get; set; }
 
-        public CategoryViewModel()
+        public HashtagDetailsViewModel()
         {
             this.Lines = new List<RecipeLineViewModel>();
         }
 
-        public CategoryViewModel(Category item)
+        public HashtagDetailsViewModel(string name, List<RecipeIndex> list)
         {
-            this.Guid = item.Guid;
-            this.Name = item.Name;
+            this.Name = name;
             this.Lines = new List<RecipeLineViewModel>();
 
-            foreach (var line in item.Recipes)
+            foreach (var line in list)
             {
                 var viewModelLine = new RecipeLineViewModel(line);
 
                 this.Lines.Add(viewModelLine);
             }
         }
-
-
-        public void FillModel(Category item)
-        {
-            item.Guid = this.Guid;
-            item.Name = this.Name;
-        }
-
     }
 }

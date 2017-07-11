@@ -1,4 +1,5 @@
-﻿using CoreCooking.Website.ViewModels.Categories;
+﻿using CoreCooking.Website.ViewModels.Hashtags;
+using CoreCooking.Website.ViewModels.Home;
 using CoreCooking.Website.ViewModels.Recipes;
 using System;
 using System.Collections.Generic;
@@ -19,58 +20,40 @@ namespace CoreCooking.Website.Helpers
             return str;
         }
 
-        // Category 
-        public static string GetUrl(CategoryViewModel item, string action = null)
+
+        // Hashtags
+        public static string GetUrl(HashtagLineViewModel item)
         {
-            if (action != null)
-                return String.Format("/{0}/{1}", Encode(item.Name), action);
-            else
-                return String.Format("/{0}", Encode(item.Name));
+            return GetUrl(item.Name);
+        }
+        public static string GetUrl(HashtagDetailsViewModel item, string action = null)
+        {
+            return GetUrl(item.Name, action);
         }
 
-        // Category 
-        public static string GetUrl(CategoryLineViewModel item)
+        public static string GetUrl(HashtagDetailsViewModel item, RecipeLineViewModel recipe)
         {
-            return String.Format("/{0}", Encode(item.Name));
-        }
-
-        // Category
-        public static string GetCategoryUrl(RecipeViewModel item, string action = null)
-        {
-            if (action != null)
-                return String.Format("/{0}/{1}", Encode(item.CategoryName), action);
-            else
-                return String.Format("/{0}", Encode(item.CategoryName));
-        }
-
-        // Category
-        public static string GetCategoryUrl(RecipeEditViewModel item)
-        {
-            return String.Format("/{0}", Encode(item.CategoryName));
-        }
-
-        // Recipe 
-        public static string GetUrl(CategoryViewModel category, RecipeLineViewModel item)
-        {
-            return String.Format("/{0}/{1}", Encode(category.Name), Encode(item.Name));
-        }
-
-        // Recipe 
-        public static string GetUrl(RecipeEditViewModel item, string action = null)
-        {
-            if (action != null)
-                return String.Format("/{0}/{1}/{2}", Encode(item.CategoryName), Encode(item.Name), action);
-            else
-                return String.Format("/{0}/{1}", Encode(item.CategoryName), Encode(item.Name));
+            return GetUrl(item.Name, recipe.Name);
         }
 
         // Recipe 
         public static string GetUrl(RecipeViewModel item, string action = null)
         {
-            if (action != null)
-                return String.Format("/{0}/{1}/{2}", Encode(item.CategoryName), Encode(item.Name), action);
+            return GetUrl(item.Hashtag, item.Name, action);
+        }
+        public static string GetUrl(RecipeEditViewModel item, string action = null)
+        {
+            return GetUrl(item.Hashtag, item.Name, action);
+        }
+
+        public static string GetUrl(string hashtag, string recipeName = null, string action = null)
+        {
+            if (recipeName == null && action == null)
+                return String.Format("/{0}", Encode(hashtag));
+            else if (action != null)
+                return String.Format("/{0}/{1}/{2}", Encode(hashtag), Encode(recipeName), action);
             else
-                return String.Format("/{0}/{1}", Encode(item.CategoryName), Encode(item.Name));
+                return String.Format("/{0}/{1}", Encode(hashtag), Encode(recipeName));
         }
     }
 }
