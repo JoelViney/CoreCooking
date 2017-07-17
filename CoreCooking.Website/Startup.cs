@@ -119,20 +119,20 @@ namespace CoreCooking.Website
                 // Recipes
                 // 
 
-
-                // /Recipes/Edit
+                // /AddRecipe
                 routes.MapRoute(
-                    name: "recipesEditOnAdd",
-                    template: "Recipes/Edit",
-                    defaults: new { controller = "Recipes", action = "Edit" }
+                    name: "recipesAdd",
+                    template: "AddRecipe",
+                    defaults: new { controller = "Recipes", action = "Add" }
                     );
 
                 // /Beef/AddRecipe
                 routes.MapRoute(
-                    name: "recipesAdd",
+                    name: "hashtagRecipesAdd",
                     template: "{hashtag}/AddRecipe",
                     defaults: new { controller = "Recipes", action = "Add" }
                     );
+
 
                 // /Beef/Edit
                 routes.MapRoute(

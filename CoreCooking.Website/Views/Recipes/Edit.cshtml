@@ -3,7 +3,10 @@
 
 <ol class="breadcrumb">
     <li><a href="/">Home</a></li>
+    @if (Model.Hashtag != null)
+    { 
     <li><a href="@UrlBuilder.GetUrl(Model.Hashtag)">@(Model.Hashtag)</a></li>
+    }
     @if (Model.IsNew())
     {
         <li>Add Recipe</li>
