@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace CoreCooking.Models
 {
@@ -20,15 +21,26 @@ namespace CoreCooking.Models
             return repository;
         }
 
-        public static async Task<User> AssureUserExistsAsync(UserRepository repository = null)
+        public static async Task<User> AssureUserExistsAsync(UserRepository repository = null, string name = "Test")
         {
             if (repository == null)
                 repository = NewRepository();
 
-            var item = new User() { Name = "Test", Password = "password" };
+            var item = new User() { Name = name, Password = "password" };
 
             await repository.SaveAsync(item);
             return item;
+        }
+
+        public static async Task AssureUserDoesntExistsAsync(UserRepository repository = null, string name = "Test")
+        {
+            if (repository == null)
+                repository = NewRepository();
+
+            var item = await repository.FindByNameAsync(name);
+
+            if (item != null)
+                await repository.DeleteAsync(item);
         }
 
         #endregion
@@ -39,9 +51,10 @@ namespace CoreCooking.Models
         {
             // Arrange
             var repository = NewRepository();
-            var item = new User() { Name = "Test", Password = "password" };
+            await AssureUserDoesntExistsAsync(repository, "Test");
 
             // Act
+            var item = new User() { Name = "Test", Password = "password" };
             await repository.SaveAsync(item);
 
             // Assert
@@ -56,8 +69,7 @@ namespace CoreCooking.Models
         {
             // Arrange
             var repository = NewRepository();
-            var item = new User() { Name = "Test", Password = "password" };
-            await repository.SaveAsync(item);
+            var item = await AssureUserExistsAsync(repository, "Test");
 
             // Act
             var item2 = await repository.GetAsync(item.Guid);
@@ -84,18 +96,19 @@ namespace CoreCooking.Models
             Assert.IsNull(item2);
         }
 
+        // Tests that a newly created user exists when calling GetList
         [TestMethod]
         public async Task GetUserListAsync()
         {
             // Arrange
             var repository = NewRepository();
-            User item = await AssureUserExistsAsync(repository);
+            var item = await AssureUserExistsAsync(repository);
 
             // Act
             List<User> list = await repository.GetListAsync();
 
             // Assert
-            Assert.IsTrue(list.Count > 0);
+            Assert.IsTrue(list.Any(x => x.Guid == item.Guid));
         }
 
     }

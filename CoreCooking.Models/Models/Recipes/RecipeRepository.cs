@@ -34,7 +34,8 @@ namespace CoreCooking.Models.Recipes
                 await RemoveReference(existing);
 
                 if (existing.ImageUrl != null && existing.ImageUrl != item.ImageUrl)
-                {
+                {   
+                    // The image has changed so delete the old image.
                     await RemoveImage(existing);
                 }
             }

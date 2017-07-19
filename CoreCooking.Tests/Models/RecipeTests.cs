@@ -35,6 +35,24 @@ namespace CoreCooking.Models
 
 
         [TestMethod]
+        public async Task CreateRecipeAsync()
+        {
+            // Arrange
+            var repository = NewRepository();
+            var item = await AssureRecipeExistsAsync(repository);
+
+            // Act
+            item.Name = "Updated Name";
+            await repository.SaveAsync(item);
+
+            // Assert
+            var item2 = await repository.GetAsync(item.Guid);
+
+            Assert.IsNotNull(item2);
+            Assert.AreEqual("Updated Name", item2.Name);
+        }
+
+        [TestMethod]
         public async Task UpdateRecipeAsync()
         {
             // Arrange

@@ -11,7 +11,6 @@ namespace CoreCooking.Models
     [TestClass]
     public class ImageTests
     {
-
         [TestMethod]
         public void ResizeImage()
         {
