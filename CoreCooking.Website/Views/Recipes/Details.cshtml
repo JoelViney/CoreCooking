@@ -2,169 +2,108 @@
 @using CoreCooking.Website.Helpers
 
 <ol class="breadcrumb">
-    <li><a href="/">Home</a></li>
-    <li><a href="@UrlBuilder.GetUrl(Model.Hashtag)">@(Model.Hashtag)</a></li>
-    <li>@(Model.Name)</li>
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="@UrlBuilder.GetUrl(Model.Hashtag)">@(Model.Hashtag)</a></li>
+    <li class="breadcrumb-item">@(Model.Name)</li>
 </ol>
 
 @if (User.Identity.IsAuthenticated)
 {
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-nav navbar-right">
-                <a href="@UrlBuilder.GetUrl(Model.Hashtag, "AddRecipe")" class="btn btn-default navbar-btn btn-sm">Add Recipe</a>
-                <a href="@UrlBuilder.GetUrl(Model, "Edit")" class="btn btn-default navbar-btn btn-sm">Edit Recipe</a>
-            </div>
+    <nav class="card">
+        <div class="card-header">
+            <a class="btn btn-sm btn-wide btn-outline-primary float-right" href="@UrlBuilder.GetUrl(Model.Hashtag, "AddRecipe")">Add Recipe</a>
+            <a class="btn btn-sm btn-wide btn-outline-primary float-right" href="@UrlBuilder.GetUrl(Model, "Edit")">Edit Recipe</a>
         </div>
     </nav>
 }
 
-<h1>@(Model.Name)</h1>
+<p>
+    <h1 class="recipe">@(Model.Name)</h1>
+</p>
 
-<h5>
-    @foreach (var hashtag in Model.Hashtags)
+<p>
+    <h5>
+        @foreach (var hashtag in Model.Hashtags)
+            {
+            <a href="@UrlBuilder.GetUrl(hashtag)">#@hashtag</a><span>&nbsp;</span>
+        }
+    </h5>
+</p>
+
+
+
+<div class="card-group">
+
+    @if (Model.ImageUrl != null || Model.Serves != null || Model.Notes != null)
     {
-        <a href="@UrlBuilder.GetUrl(hashtag)">#@hashtag</a><span>&nbsp;</span>
-    }
-</h5>
-
-<div class="row">
-
-    <div class="container">
-
-        @if (Model.ImageUrl != null || Model.Serves != null || Model.Notes != null)
-        {
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                @if (Model.ImageUrl != null)
-                {
-                    <div class="panel">
-                        <div class="panel-body">
-                            <img id="imgUrl" src="@Url.Content(Model.ImageUrl)" class="img-responsive img-rounded" alt="@Url.Content(Model.ImageUrl)">
-                        </div>
-                    </div>
-                }
-
+        <div class="card">
+            @if (Model.ImageUrl != null)
+            {
+                <img class="card-img-top img-thumbnail" src="@Url.Content(Model.ImageUrl)">
+            }
+            <ul class="list-group list-group-flush">
                 @if (Model.Serves != null)
                 {
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <span asp-for="Serves">Serves: @(Model.Serves)</span>
-                        </div>
-                    </div>
+                    <li class="list-group-item">
+                        <h5>Serves: @(Model.Serves)</h5>
+                    </li>
                 }
-
 
                 @if (!String.IsNullOrEmpty(Model.Notes))
                 {
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Notes</div>
-                        <div class="panel-body">
-                            @(Model.Notes)
+                    <li class="list-group-item">
+                        <div class="row">
+                            <h5 class="card-title col-12">Notes</h5>
+                            <p class="col-12">@(Model.Notes)</p>
                         </div>
-                    </div>
+                    </li>
                 }
-                <!-- Ingredients A -->
-                <div class="hidden-lg hidden-md col-sm-12 hidden-xs">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Ingredients</div>
-                        <table class="table .table-condensed">
-                            @foreach (var item in Model.Ingredients)
+            </ul>
+
+        </div>
+
+
+    }
+    <!-- Ingredients -->
+    <div class="card">
+        <div class="card-block">
+            <h5 class="card-title">Ingredients</h5>
+
+            <table class="table table-sm">
+                @foreach (var item in Model.Ingredients)
+                {
+                    <tr class="row">
+                        <td class="col-3"><span class="float-right" style="white-space: nowrap;">@(item.DisplayQuantityAndUom)</span></td>
+                        <td class="col-9">
+                            @(item.Name)
+                            @if (item.Directions != null)
                             {
-                            <tr>
-                                <td class="col-md-2"><span class="text-right" style="white-space: nowrap;">@(item.DisplayQuantityAndUom)</span></td>
-                                <td>
-                                    @(item.Name)
-                                    @if (item.Directions != null)
-                                        {
-                                    <span> - @(item.Directions)</span>
-                                        }
-                                </td>
-                            </tr>
+                                <span> - @(item.Directions)</span>
                             }
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ingredients B -->
-            <div class="col-md-4 hidden-sm col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Ingredients</div>
-                    <table class="table .table-condensed">
-                        @foreach (var item in Model.Ingredients)
-                        {
-                            <tr>
-                                <td class="col-md-2 text-right"><span class="text-right" style="white-space: nowrap;">@(item.DisplayQuantityAndUom)</span></td>
-                                <td>
-                                    @(item.Name)
-                                    @if (item.Directions != null)
-                                    {
-                                        <span> - @(item.Directions)</span>
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    </table>
-                </div>
-            </div>
-
-            <!-- Steps -->
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Steps</div>
-                    <ul class="list-group">
-                        @foreach (var item in Model.Steps)
-                        {
-                            @if (!String.IsNullOrEmpty(item))
-                            {
-                                <li class="list-group-item">@(item)</li>
-                            }
-                        }
-                    </ul>
-                </div>
-            </div>
-        }
-        else
-        {
-            <!-- Ingredients C -->
-            <div class="col-sm-6 col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Ingredients</div>
-                    <table class="table .table-condensed">
-                        @foreach (var item in Model.Ingredients)
-                        {
-                            <tr>
-                                <td class="col-md-2"><span class="pull-right" style="white-space: nowrap;">@(item.DisplayQuantityAndUom)</span></td>
-                                <td>
-                                    @(item.Name)
-                                    @if (item.Directions != null)
-                                    {
-                                        <span> - @(item.Directions)</span>
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    </table>
-                </div>
-            </div>
-
-            <!-- Steps -->
-            <div class="col-sm-6 col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Steps</div>
-                    <ul class="list-group">
-                        @foreach (var item in Model.Steps)
-                        {
-                            @if (!String.IsNullOrEmpty(item))
-                            {
-                                <li class="list-group-item">@(item)</li>
-                            }
-                        }
-                    </ul>
-                </div>
-            </div>
-        }
-
-
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
     </div>
+    <!-- Steps -->
+    <div class="card">
+        <div class="card-block">
+            <h5 class="card-title">Steps</h5>
+            <table class="table table-sm">
+                @foreach (var item in Model.Steps)
+                {
+                    @if (!String.IsNullOrEmpty(item))
+                    {
+                        <tr>
+                            <td>@(item)</td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+
+
+
 </div>

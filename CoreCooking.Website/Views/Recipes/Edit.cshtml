@@ -2,47 +2,44 @@
 @using CoreCooking.Website.Helpers
 
 <ol class="breadcrumb">
-    <li><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
     @if (Model.Hashtag != null)
     { 
-    <li><a href="@UrlBuilder.GetUrl(Model.Hashtag)">@(Model.Hashtag)</a></li>
+    <li class="breadcrumb-item"><a href="@UrlBuilder.GetUrl(Model.Hashtag)">@(Model.Hashtag)</a></li>
     }
     @if (Model.IsNew())
     {
-        <li>Add Recipe</li>
+        <li class="breadcrumb-item">Add Recipe</li>
     }
     else
     {
-        <li><a href="@UrlBuilder.GetUrl(Model)">@(Model.Name)</a></li>
-        <li>Edit</li>
+        <li class="breadcrumb-item"><a href="@UrlBuilder.GetUrl(Model)">@(Model.Name)</a></li>
+        <li class="breadcrumb-item">Edit</li>
     }
 </ol>
 
 <form asp-controller="Recipes" asp-action="Edit" method="post">
 
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
+    <nav class="card">
+        <div class="card-header">
             @if (!Model.IsNew())
             {
-                <div class="navbar-nav navbar-left">
-                    <a href="@UrlBuilder.GetUrl(Model, "Delete")" class="btn btn-default navbar-btn btn-sm">Delete</a>
-                </div>
+                <a class="btn btn-sm btn-wide btn-outline-primary float-left" href="@UrlBuilder.GetUrl(Model, "Delete")">Delete</a>
             }
-            <div class="navbar-nav navbar-right">
-                <input type="submit" value="Save" class="btn btn-default btn-sm" />
-                @if (Model.IsNew())
-                {
-                    <a href="@UrlBuilder.GetUrl(Model.Hashtag)" class="btn btn-default navbar-btn btn-sm">Cancel</a>
-                }
-                else
-                {
-                    <a href="@UrlBuilder.GetUrl(Model)" class="btn btn-default navbar-btn btn-sm">Cancel</a>
-                }
-            </div>
+            <input class="btn btn-sm btn-wide btn-outline-primary float-right" type="submit" value="Save" />
+            @if (Model.IsNew())
+            {
+                <a class="btn btn-sm btn-wide btn-outline-primary float-right" href="@UrlBuilder.GetUrl(Model.Hashtag)">Cancel</a>
+            }
+            else
+            {
+                <a class="btn btn-sm btn-wide btn-outline-primary float-right" href="@UrlBuilder.GetUrl(Model)">Cancel</a>
+            }
         </div>
     </nav>
-
+    <p></p>
     <h1>@(Model.Name)</h1>
+    <p></p>
 
     <input asp-for="ImageUrl" type="hidden">
     <input asp-for="Guid" type="hidden">
@@ -68,31 +65,28 @@
                 <label asp-for="Serves" class="col-md-2 control-label"></label>
                 <input asp-for="Serves" class="form-control" />
             </div>
-        </div>
 
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <img id="imgControl" src="@Url.Content(Model.ImageUrl)" class="img-responsive img-rounded" style="max-width: 250px;" alt="@Url.Content(Model.ImageUrl)" />
-                </div>
-                <div class="panel-footer">
-                    <span id="uploadFileButton" class="btn btn-default btn-file">
-                        Upload<input type="file" id="uploadFileInput">
-                    </span>
-
-                    <button id="deleteFileButton" type="button" class="btn btn-default">Delete</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">Notes</div>
-                <div class="panel-body">
-                    <div class="form-group">
+            <div class="card">
+                <div class="card-block">
+                    <div class="card-title">Notes</div>
+                    <div class="form-grouph">
                         <textarea asp-for="Notes" class="form-control" style="height: 10em;"></textarea>
                         <span asp-validation-for="Notes" class="text-danger"></span>
                     </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <img class="card-img-top img-thumbnail" id="imgControl" src="@Url.Content(Model.ImageUrl)" alt="@Url.Content(Model.ImageUrl)" />
+                <div class="card-footer">
+                    <button class="btn btn-sm btn-wide btn-outline-primary float-left" id="deleteFileButton" type="button">Delete</button>
+
+                    <span class="btn btn-sm btn-wide btn-outline-primary float-right btn-file" id="uploadFileButton" >
+                        Upload<input type="file" id="uploadFileInput">
+                    </span>
                 </div>
             </div>
         </div>
@@ -100,9 +94,9 @@
 
     <div class="row">
         <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">Ingredients</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-block">
+                    <div class="card-title">Ingredients</div>
                     <div class="form-group">
                         <textarea asp-for="IngredientsText" class="form-control" style="height: 40em;"></textarea>
                         <span asp-validation-for="IngredientsText" class="text-danger"></span>
@@ -112,9 +106,9 @@
         </div>
 
         <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">Steps</div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-block">
+                    <div class="card-title">Steps</div>
                     <div class="form-group">
                         <textarea asp-for="StepsText" class="form-control" style="height: 40em;"></textarea>
                         <span asp-validation-for="StepsText" class="text-danger"></span>

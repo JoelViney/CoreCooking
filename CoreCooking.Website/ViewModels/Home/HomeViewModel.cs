@@ -8,6 +8,8 @@ namespace CoreCooking.Website.ViewModels.Home
 {
     public class HomeViewModel
     {
+        public int RecipeCount { get; set; }
+
         public List<HashtagLineViewModel> Hashtags { get; set; }
 
         public HomeViewModel()
@@ -17,6 +19,8 @@ namespace CoreCooking.Website.ViewModels.Home
 
         public HomeViewModel(Site site)
         {
+            this.RecipeCount = site.Recipes.Count;
+
             this.Hashtags = new List<HashtagLineViewModel>();
             var list = site.GetHashtags();
 

@@ -1,82 +1,91 @@
 @model CoreCooking.Website.ViewModels.Hashtags.HashtagDetailsViewModel
 @using CoreCooking.Website.Helpers
 
-<ol class="breadcrumb">
-    <li><a href="/">Home</a></li>
-    <li>@(Model.Name)</li>
-</ol>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item">@(Model.Name)</li>
+    </ol>
 
-@if (User.Identity.IsAuthenticated)
-{
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-nav navbar-right">
-                <a href="@UrlBuilder.GetUrl(Model, "AddRecipe")" class="btn btn-default navbar-btn btn-sm">Add Recipe</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-sm btn-wide btn-outline-primary float-right" href="@UrlBuilder.GetUrl(Model, "AddRecipe")">Add Recipe</a>
             </div>
         </div>
-    </nav>
-}
+    }
+    <p></p>
 
-@if (ViewBag.ViewIcons)
-{
-    <nav class="row pull-right btn-group">
-        <a href="@UrlBuilder.GetUrl(Model)?viewIcons=false" class="btn navbar-btn btn-sm btn-default">
-            <span class="glyphicon glyphicon glyphicon-th-list" aria-hidden="true"></span>
-        </a>
-        <button class="btn navbar-btn btn-sm btn-default disabled" style="background-color: #D5D8DC;" disabled>
-            <span class="glyphicon glyphicon glyphicon-th-large" aria-hidden="true"></span>
-        </button>
-    </nav>
-}
-else
-{
-    <nav class="row pull-right btn-group">
-        <div class="btn navbar-btn btn-sm btn-default disabled" style="background-color: #D5D8DC;">
-            <span class="glyphicon glyphicon glyphicon-th-list" aria-hidden="true"></span>
-        </div>
-        <a href="@UrlBuilder.GetUrl(Model)?viewIcons=true" class="btn navbar-btn btn-sm btn-default">
-            <span class="glyphicon glyphicon glyphicon-th-large" aria-hidden="true"></span>
-        </a>
-    </nav>
-}
-
-<h1>@(Model.Name)</h1>
-
-<br />
-
-@if (ViewBag.ViewIcons)
-{
-    <div class="row">
-        @foreach (var item in Model.Lines)
-        {
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                @if (item.ImageUrl != null)
+    <div class="container">
+        <div class="row">
+            <h1 class="hashtag col-9">@(Model.Name)</h1>
+            <div class="col-3">
+                @if (ViewBag.ViewIcons)
                 {
-                    <a href="@UrlBuilder.GetUrl(Model, item)" class="thumbnail">
-                        <img id="imgUrl" src="@Url.Content(item.ImageUrl)" alt="@Url.Content(item.ImageUrl)">
-                        <h3 class="image-text">@Html.DisplayFor(x => item.Name)</h3>
-                    </a>
+                    <div class="btn-group col-3 float-right" role="group" style="margin-top: 5px;">
+                        <a class="btn btn-sm btn-secondary" href="@UrlBuilder.GetUrl(Model)?viewIcons=false" style="height: 2em;">
+                            <i class="fa fa-list" aria-hidden="true"></i>
+                        </a>
+                        <button class="btn btn-sm btn-secondary disabled" style="background-color: #D5D8DC; height: 2em;" disabled>
+                            <i class="fa fa-th-large" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 }
                 else
                 {
-                    <a href="@UrlBuilder.GetUrl(Model, item)" class="thumbnail">
-                        <img id="imgUrl" src="~/images/blank.jpg" alt="Blank">
-                        <h3 class="image-text">@Html.DisplayFor(x => item.Name)</h3>
-                    </a>
+                    <div class="btn-group col-3 float-right" role="group" style="margin-top: 5px;">
+                        <div class="btn btn-sm btn-secondary btn-list-toggle" style="background-color: #D5D8DC; height: 2em;" disabled>
+                            <i class="fa fa-list" aria-hidden="true"></i>
+                        </div>
+                        <a class="btn btn-sm btn-secondary btn-list-toggle" href="@UrlBuilder.GetUrl(Model)?viewIcons=true" style="height: 2em;">
+                            <i class="fa fa-th-large" aria-hidden="true"></i>
+                        </a>
+                    </div>
                 }
             </div>
-        }
-    </div>
-}
-else
-{
-    <div class="row">
-        <div class="list-group">
-            @foreach (var item in Model.Lines)
-            {
-                <a href="@UrlBuilder.GetUrl(Model, item)" class="list-group-item">@Html.DisplayFor(x => item.Name)</a>
-            }
         </div>
     </div>
-}
+
+    <p></p>
+
+    @if (ViewBag.ViewIcons)
+    {
+        <div class="card-columns">
+            @foreach (var item in Model.Lines)
+            {
+                <a href="@UrlBuilder.GetUrl(Model, item)">
+                    <div class="card">
+                        @if (item.ImageUrl != null)
+                    {
+                            <img class="card-img img-fluid" src="@Url.Content(item.ImageUrl)" alt="Image of @Url.Content(item.Name)">
+                            <div class="card-img-overlay" style="padding-top: 5ex;">
+                                <h5 class="card-title text-white text-center">@Html.DisplayFor(x => item.Name)</h5>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="card-block jumbotron" style="background-color: Gainsboro; color: black; padding-top: 3ex; padding-bottom: 4ex; margin-bottom: 0px;">
+                                <h5 class="card-title text-center">@Html.DisplayFor(x => item.Name)</h5>
+                            </div>
+                        }
+                    </div>
+                </a>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12">
+                <ul class="list-group">
+                    @foreach (var item in Model.Lines)
+                    {
+                        <li class="list-group-item">
+                            <a href="@UrlBuilder.GetUrl(Model, item)">@Html.DisplayFor(x => item.Name)</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
 

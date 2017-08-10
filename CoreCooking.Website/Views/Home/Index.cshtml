@@ -6,24 +6,26 @@
 }
 
 <ol class="breadcrumb">
-    <li><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
 </ol>
 
 @if (User.Identity.IsAuthenticated)
 {
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-nav navbar-right">
-                <a asp-controller="Recipes" asp-action="Add" class="btn navbar-btn btn-sm btn-default">Add Recipe</a>
-            </div>
-        </div>
-    </nav>
-}
+    <div class="card">
+        <div class="card-header">
+            <span>@(Model.RecipeCount) Recipes Total</span>            
 
+            <a asp-controller="Recipes" asp-action="Add" class="btn btn-sm btn-wide btn-outline-primary float-right">Add Recipe</a>
+        </div>
+    </div>
+    <p></p>
+}
 
 <div class="list-group">
     @foreach (var item in Model.Hashtags)
     {
-        <a href="@UrlBuilder.GetUrl(item)" class="list-group-item">@Html.DisplayFor(modelItem => item.Name)</a>
+        <a class="list-group-item" href="@UrlBuilder.GetUrl(item)">
+            @Html.DisplayFor(modelItem => item.Name)
+        </a>
     }
 </div>
