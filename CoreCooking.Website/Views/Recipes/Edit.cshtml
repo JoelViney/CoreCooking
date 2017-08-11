@@ -4,8 +4,8 @@
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/">Home</a></li>
     @if (Model.Hashtag != null)
-    { 
-    <li class="breadcrumb-item"><a href="@UrlBuilder.GetUrl(Model.Hashtag)">@(Model.Hashtag)</a></li>
+    {
+        <li class="breadcrumb-item"><a href="@UrlBuilder.GetUrl(Model.Hashtag)">@(Model.Hashtag)</a></li>
     }
     @if (Model.IsNew())
     {
@@ -26,15 +26,19 @@
             {
                 <a class="btn btn-sm btn-wide btn-outline-primary float-left" href="@UrlBuilder.GetUrl(Model, "Delete")">Delete</a>
             }
-            <input class="btn btn-sm btn-wide btn-outline-primary float-right" type="submit" value="Save" />
-            @if (Model.IsNew())
-            {
-                <a class="btn btn-sm btn-wide btn-outline-primary float-right" href="@UrlBuilder.GetUrl(Model.Hashtag)">Cancel</a>
-            }
-            else
-            {
-                <a class="btn btn-sm btn-wide btn-outline-primary float-right" href="@UrlBuilder.GetUrl(Model)">Cancel</a>
-            }
+
+            <div class="btn-group float-right" role="group">
+                @if (Model.IsNew())
+                {
+                    <a class="btn btn-sm btn-wide btn-outline-primary" href="@UrlBuilder.GetUrl(Model.Hashtag)">Cancel</a>
+                }
+                else
+                {
+                    <a class="btn btn-sm btn-wide btn-outline-primary" href="@UrlBuilder.GetUrl(Model)">Cancel</a>
+                }
+
+                <button class="btn btn-sm btn-wide btn-outline-primary" type="submit">Save</button>
+            </div>
         </div>
     </nav>
     <p></p>
@@ -84,7 +88,7 @@
                 <div class="card-footer">
                     <button class="btn btn-sm btn-wide btn-outline-primary float-left" id="deleteFileButton" type="button">Delete</button>
 
-                    <span class="btn btn-sm btn-wide btn-outline-primary float-right btn-file" id="uploadFileButton" >
+                    <span class="btn btn-sm btn-wide btn-outline-primary float-right btn-file" id="uploadFileButton">
                         Upload<input type="file" id="uploadFileInput">
                     </span>
                 </div>

@@ -23,10 +23,10 @@
                 @if (ViewBag.ViewIcons)
                 {
                     <div class="btn-group col-3 float-right" role="group" style="margin-top: 5px;">
-                        <a class="btn btn-sm btn-secondary" href="@UrlBuilder.GetUrl(Model)?viewIcons=false" style="height: 2em;">
+                        <a class="btn btn-sm btn-secondary btn-view" href="@UrlBuilder.GetUrl(Model)?viewIcons=false">
                             <i class="fa fa-list" aria-hidden="true"></i>
                         </a>
-                        <button class="btn btn-sm btn-secondary disabled" style="background-color: #D5D8DC; height: 2em;" disabled>
+                        <button class="btn btn-sm btn-secondary btn-view-disabled">
                             <i class="fa fa-th-large" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -34,10 +34,10 @@
                 else
                 {
                     <div class="btn-group col-3 float-right" role="group" style="margin-top: 5px;">
-                        <div class="btn btn-sm btn-secondary btn-list-toggle" style="background-color: #D5D8DC; height: 2em;" disabled>
+                        <div class="btn btn-sm btn-secondary btn-list-toggle btn-view-disabled" disabled>
                             <i class="fa fa-list" aria-hidden="true"></i>
                         </div>
-                        <a class="btn btn-sm btn-secondary btn-list-toggle" href="@UrlBuilder.GetUrl(Model)?viewIcons=true" style="height: 2em;">
+                        <a class="btn btn-sm btn-secondary btn-list-toggle btn-view" href="@UrlBuilder.GetUrl(Model)?viewIcons=true">
                             <i class="fa fa-th-large" aria-hidden="true"></i>
                         </a>
                     </div>

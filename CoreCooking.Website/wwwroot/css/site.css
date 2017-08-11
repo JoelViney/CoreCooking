@@ -9,22 +9,37 @@ h1.hashtag, h2.recipe {
 }
 
 /* Bootstrap4 decided that buttons don't need hand cursors. */
-button {
+.btn-hand {
     cursor: pointer;
     cursor: hand;
 }
-button:disabled:hover {
+.btn-hand :disabled :hover {
     cursor: default;
 }
 
+.btn-wide {
+    min-width: 6em;
+    cursor: pointer;
+    cursor: hand;
+}
+.btn-wide :disabled :hover {
+    cursor: default;
+}
+
+.btn-view {
+    width: 2.5em;
+    height: 2em;
+}
+
+.btn-view-disabled {
+    width: 2.5em;
+    height: 2em;
+    background-color: #D5D8DC;
+}
 
 /* Show a progress bar when a element / button is busy. */
 .busy {
     cursor: progress;
-}
-
-.btn.btn-wide {
-    min-width: 6em;
 }
 
 /***************************************
