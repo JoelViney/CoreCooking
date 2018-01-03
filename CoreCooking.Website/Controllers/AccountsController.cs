@@ -2,6 +2,7 @@ using CoreCooking.Models;
 using CoreCooking.Models.Users;
 using CoreCooking.Website.Models;
 using CoreCooking.Website.ViewModels.Accounts;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -46,9 +47,9 @@ namespace CoreCooking.Website.Controllers
                 };
 
                 var id = new ClaimsIdentity(claims, "password");
-                var p = new ClaimsPrincipal(id);
+                var principal = new ClaimsPrincipal(id);
 
-                await HttpContext.Authentication.SignInAsync("Cookies", p);
+                await HttpContext.SignInAsync("MyCookieAuthenticationScheme", principal);
 
                 if (viewModel.ReturnUrl != null)
                     return Redirect(viewModel.ReturnUrl);
@@ -63,8 +64,8 @@ namespace CoreCooking.Website.Controllers
 
         public async Task<IActionResult> Logout(string returnUrl = null)
         {
-            await HttpContext.Authentication.SignOutAsync("Cookies");
-            
+            await HttpContext.SignOutAsync("MyCookieAuthenticationScheme");
+
             if (returnUrl != null)
                 return Redirect(returnUrl);
 

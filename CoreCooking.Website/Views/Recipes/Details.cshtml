@@ -57,7 +57,7 @@
                     <li class="list-group-item">
                         <div class="row">
                             <h5 class="card-title col-12">Notes</h5>
-                            <p class="col-12">@(Model.Notes)</p>
+                            <p class="col-12">@Html.Raw(@Model.Notes.ToHtml())</p>
                         </div>
                     </li>
                 }

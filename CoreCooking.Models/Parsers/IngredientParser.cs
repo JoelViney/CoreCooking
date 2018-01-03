@@ -65,9 +65,16 @@ namespace CoreCooking.Parsers
                         break;
                 }
                 quantityString = quantityString.Trim();
-                item.Quantity = FractionToDouble(quantityString);
-
-                line = line.Substring(i);
+                try
+                {
+                    item.Quantity = FractionToDouble(quantityString);
+                    line = line.Substring(i);
+                }
+                catch
+                {
+                    // Failed to parse the fraction so just move on.
+                    int x = 2;
+                }
             }
 
 

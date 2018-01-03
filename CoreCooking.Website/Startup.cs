@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using CoreCooking.Website.Models;
 using Microsoft.Extensions.Configuration.UserSecrets;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CoreCooking.Website
 {
@@ -41,6 +42,18 @@ namespace CoreCooking.Website
             // Add framework services.
             services.AddMvc();
 
+            //services.AddAuthentication("MyCookieAuthenticationScheme").AddCookie(options => 
+            //    {
+            //        options.AccessDeniedPath = "/accounts/login";
+            //        options.LoginPath = "/accounts/login";
+            //    });
+            services.AddAuthentication("MyCookieAuthenticationScheme")
+                .AddCookie("MyCookieAuthenticationScheme", options =>
+                {
+                    options.AccessDeniedPath = "/accounts/login";
+                    options.LoginPath = "/accounts/login";
+                });
+
             var appSettings = Configuration.GetSection("Settings");
             services.Configure<Settings>(appSettings);
         }
@@ -63,26 +76,7 @@ namespace CoreCooking.Website
 
             app.UseStaticFiles();
 
-            // Add cookie authentication.
-            // https://github.com/leastprivilege/AspNetCoreSecuritySamples/tree/master/Cookies
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationScheme = "Cookies",
-                AutomaticAuthenticate = true,
-                AutomaticChallenge = true,
-
-                LoginPath = new PathString("/accounts/login")
-            });
-
-            app.UseClaimsTransformation(context =>
-            {
-                if (context.Principal.Identity.IsAuthenticated)
-                {
-                    context.Principal.Identities.First().AddClaim(new Claim("now", DateTime.Now.ToString()));
-                }
-
-                return Task.FromResult(context.Principal);
-            });
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
