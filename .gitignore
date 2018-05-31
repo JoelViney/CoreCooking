@@ -305,3 +305,6 @@ $RECYCLE.BIN/
 #Content
 
 **/*UserSecrets.json
+
+CoreCooking.Tests/appsettings.UserSecrets.json
+
