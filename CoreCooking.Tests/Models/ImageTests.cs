@@ -1,6 +1,7 @@
 ﻿using CoreCooking.Models.Images;
-using ImageSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,12 +23,12 @@ namespace CoreCooking.Models
             {
                 using (var image = Image.Load<Rgba32>(fileStream))
                 {
-                    var image2 = ImageHelper.Resize(image, 480, 320);
+                    ImageHelper.Resize(image, 480, 320);
 
-                    Assert.AreEqual(480, image2.Width);
-                    Assert.AreEqual(320, image2.Height);
+                    Assert.AreEqual(480, image.Width);
+                    Assert.AreEqual(320, image.Height);
 
-                    image2.Save(destinationFilePathName);
+                    image.Save(destinationFilePathName);
                 }
             }
         }

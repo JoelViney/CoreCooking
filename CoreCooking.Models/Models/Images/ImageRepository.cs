@@ -5,7 +5,10 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using CoreCooking.Data;
-using ImageSharp;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace CoreCooking.Models.Images
 {
@@ -43,17 +46,13 @@ namespace CoreCooking.Models.Images
             // Resize
             using (var image = Image.Load<Rgba32>(stream))
             {
-                using (var resizedImage = ImageHelper.Resize(image, MaxWidth, MaxHeight))
+                ImageHelper.Resize(image, MaxWidth, MaxHeight);
+                using (Stream stream2 = new MemoryStream())
                 {
-                    using (Stream stream2 = new MemoryStream())
-                    {
-                        resizedImage.Save(stream2);
-                        stream2.Position = 0;
-                        var url = await _fileManager.SaveFileAsync(fileName, stream2);
-
-                        return url;
-
-                    }
+                    image.Save(stream2, new JpegEncoder());
+                    stream2.Position = 0;
+                    var url = await _fileManager.SaveFileAsync(fileName, stream2);
+                    return url;
                 }
             }
         }

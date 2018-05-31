@@ -145,6 +145,9 @@
 
         function enableForm() {
             $("body").css("cursor", "default");
+
+            $('button').attr('disabled', false);
+            $('a').attr('disabled', false);
         }
 
         function deleteFile(e) {

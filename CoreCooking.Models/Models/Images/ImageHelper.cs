@@ -1,13 +1,17 @@
-﻿using ImageSharp;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Processing.Transforms;
 using System;
 using System.Collections.Generic;
 using System.Text;
+
 
 namespace CoreCooking.Models.Images
 {
     public static class ImageHelper
     {
-        public static Image<Rgba32> Resize(Image<Rgba32> image, int maxWidth, int maxHeight)
+        public static void Resize(Image<Rgba32> image, int maxWidth, int maxHeight)
         {
             double coefHeight = ((double)maxHeight / (double)image.Height);
             double coefWidth = ((double)maxWidth / (double)image.Width);
@@ -23,13 +27,10 @@ namespace CoreCooking.Models.Images
 
             if (image.Height <= height && image.Width <= width)
             {
-                return image;
+                return;
             }
-
-            var newImage = image.Resize(width, height);
-
-            return newImage;
+            
+            image.Mutate(x => x.Resize(width, height)); // resize the image in place and return it for chaining
         }
-
     }
 }
