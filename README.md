@@ -11,7 +11,7 @@ Technologies used:
 - Windows Azure Storage
 - Bootstrap 4
 - Cookie based Authentication
-- ImageSharp
+- ImageSharp (Beta)
 
 
 To compile it needs the ImageSharp libary installed, details of how to do this is in the Models/ReadMe.txt
