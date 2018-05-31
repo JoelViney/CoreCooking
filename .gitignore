@@ -304,4 +304,4 @@ $RECYCLE.BIN/
 
 #Content
 
-*.UserSecrets.json
+**/*UserSecrets.json
