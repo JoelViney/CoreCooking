@@ -8,10 +8,10 @@ Technologies used:
 - Core 2.0 
 - Asp.Net MVC 
 - Azure
-- Windows Azure Storage
+- Azure Storage
 - Bootstrap 4
 - Cookie based Authentication
-- ImageSharp (kind of kludgy)
+- ImageSharp
 
 
 To compile it needs the ImageSharp libary installed, details of how to do this is in the Models/ReadMe.txt
