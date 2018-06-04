@@ -63,7 +63,7 @@ namespace CoreCooking.Website.ViewModels.Recipes
         public void FillModel(Recipe item)
         {
             item.Guid = this.Guid;
-            item.Name = this.Name.Trim();
+            item.Name = this.Name?.Trim();
             item.HashtagsString = this.HashtagsString;
             item.Serves = this.Serves;
             item.ImageUrl = this.ImageUrl;

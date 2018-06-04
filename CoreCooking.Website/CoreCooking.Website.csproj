@@ -21,7 +21,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
@@ -32,9 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CoreCooking.Models\CoreCooking.Models.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0-msbuild3-final" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Test\" />
