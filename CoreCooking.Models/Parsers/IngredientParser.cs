@@ -73,7 +73,6 @@ namespace CoreCooking.Parsers
                 catch
                 {
                     // Failed to parse the fraction so just move on.
-                    int x = 2;
                 }
             }
 

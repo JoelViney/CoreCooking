@@ -37,20 +37,23 @@ namespace CoreCooking.Models.Sites
 
             foreach (var recipe in this.Recipes)
             {
-                var words = recipe.HashtagsString.Split('#');
+                var words = recipe.HashtagsString?.Split('#');
 
-                foreach (var word in words)
+                if (words != null)
                 {
-                    if (!String.IsNullOrWhiteSpace(word))
+                    foreach (var word in words)
                     {
-                        var hashtag = list.Where(x => x.Name == word.Trim()).FirstOrDefault();
-
-                        if (hashtag == null)
+                        if (!String.IsNullOrWhiteSpace(word))
                         {
-                            hashtag = new Hashtag() { Name = word.Trim() };
-                            list.Add(hashtag);
+                            var hashtag = list.Where(x => x.Name == word.Trim()).FirstOrDefault();
+
+                            if (hashtag == null)
+                            {
+                                hashtag = new Hashtag() { Name = word.Trim() };
+                                list.Add(hashtag);
+                            }
+                            hashtag.Count++;
                         }
-                        hashtag.Count++;
                     }
                 }
             }

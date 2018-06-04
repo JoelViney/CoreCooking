@@ -13,12 +13,15 @@ namespace CoreCooking.Models.Sites
 
         public bool ContainsHashtag(string hashtag)
         {
-            var list = this.HashtagsString.Split('#');
+            var list = this.HashtagsString?.Split('#');
 
-            foreach (var item in list)
+            if (list != null)
             {
-                if (item.Trim() == hashtag)
-                    return true;
+                foreach (var item in list)
+                {
+                    if (item.Trim() == hashtag)
+                        return true;
+                }
             }
 
             return false;
