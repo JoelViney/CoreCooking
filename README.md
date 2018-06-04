@@ -5,7 +5,7 @@ This is a simple cooking recipe website using .Net Core 2.0. It uses Azure stora
 It was written to explore Asp.net Core MVC and Boostrap 4.
 
 Technologies used:
-- Core 2.0 
+- Core 2.1 
 - Asp.Net MVC 
 - Azure
 - Azure Storage
@@ -13,5 +13,9 @@ Technologies used:
 - Cookie based Authentication
 - ImageSharp
 
+# Setup Dev Environment
+* The project runs in Visual Studio 2017
+1. You will need to manually add a appsettings.UserSecrets.json file to the CoreCooking.Models project root.
+  (This is because user secrets don't work on )
 
-To compile it needs the ImageSharp libary installed, details of how to do this is in the Models/ReadMe.txt
+2. Populate this file with a link to 
