@@ -18,4 +18,4 @@ Technologies used:
 1. You will need to manually add a appsettings.UserSecrets.json file to the CoreCooking.Models project root.
   (This is because user secrets don't work on )
 
-2. Populate this file with a link to 
+2. Populate this file with a link to the database.
