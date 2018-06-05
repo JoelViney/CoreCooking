@@ -15,5 +15,6 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
-
+ 
+CoreCooking.Website/wwwroot/lib/** linguist-vendored
 CoreCooking.Website/wwwroot/lib/ linguist-vendored
