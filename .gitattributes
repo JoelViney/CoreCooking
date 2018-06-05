@@ -16,6 +16,5 @@
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
  
-CoreCooking.Website/wwwroot/lib/** linguist-vendored
+ # Vendor Files
 CoreCooking.Website/wwwroot/lib/* linguist-vendored
-CoreCooking.Website/wwwroot/lib/ linguist-vendored
