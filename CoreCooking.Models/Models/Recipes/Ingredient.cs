@@ -30,17 +30,10 @@ namespace CoreCooking.Models.Recipes
                 }
                 else
                 {   // Decimal
-                    //if (this.Uom == "cup" || this.Uom == "cups")
-                    //{
-                        Fraction fraction = FractionParser.RealToFraction(this.Quantity.Value);
+                    
+                    Fraction fraction = FractionParser.RealToFraction(this.Quantity.Value);
 
-                        return String.Format("{0} {1}", fraction.ToString(), this.Uom);
-                    //}
-                    //else
-                    //{
-                    //    return String.Format("{0} {1}", this.Quantity, this.Uom);
-                    //}
-
+                    return String.Format("{0} {1}", fraction.ToString(), this.Uom);
                 }
             }
 
