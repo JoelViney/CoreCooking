@@ -24,8 +24,10 @@ namespace CoreCooking.Website.Controllers
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-            LoginViewModel viewModel = new LoginViewModel();
-            viewModel.ReturnUrl = returnUrl;
+            LoginViewModel viewModel = new LoginViewModel
+            {
+                ReturnUrl = returnUrl
+            };
 
             return View(viewModel);
         }

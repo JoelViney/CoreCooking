@@ -23,8 +23,10 @@ namespace CoreCooking.Models
             {
                 using (var image = Image.Load<Rgba32>(fileStream))
                 {
+                    // Act
                     ImageHelper.Resize(image, 480, 320);
 
+                    // Assert
                     Assert.AreEqual(480, image.Width);
                     Assert.AreEqual(320, image.Height);
 

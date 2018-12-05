@@ -32,8 +32,6 @@ namespace CoreCooking.Models
 
         #endregion
 
-
-
         [TestMethod]
         public async Task CreateRecipeAsync()
         {
