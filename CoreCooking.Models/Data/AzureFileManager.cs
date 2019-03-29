@@ -31,7 +31,7 @@ namespace CoreCooking.Data
             var list = new List<string>();
 
             CloudBlobContainer container = await this.GetContainerAsync();
-            BlobContinuationToken token = new BlobContinuationToken();
+            var token = new BlobContinuationToken();
 
             var blobs = new List<IListBlobItem>();
             do
@@ -44,7 +44,7 @@ namespace CoreCooking.Data
 
             foreach (var blob in blobs)
             {
-                CloudBlockBlob cbb = (CloudBlockBlob)blob;
+                var cbb = (CloudBlockBlob)blob;
                 list.Add(cbb.Name);
             }
 

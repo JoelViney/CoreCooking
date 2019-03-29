@@ -44,7 +44,8 @@
             {
                 <img class="card-img-top img-thumbnail" src="@Url.Content(Model.ImageUrl)">
             }
-            <ul class="list-group list-group-flush">
+            <ul class="list-group">
+
                 @if (Model.Serves != null)
                 {
                     <li class="list-group-item">
@@ -70,40 +71,48 @@
     <!-- Ingredients -->
     <div class="card">
         <div class="card-block">
-            <h5 class="card-title">Ingredients</h5>
-
-            <table class="table table-sm">
-                @foreach (var item in Model.Ingredients)
-                {
-                    <tr class="row">
-                        <td class="col-3"><span class="float-right" style="white-space: nowrap;">@(item.DisplayQuantityAndUom)</span></td>
-                        <td class="col-9">
-                            @(item.Name)
-                            @if (item.Directions != null)
-                            {
-                                <span> - @(item.Directions)</span>
-                            }
-                        </td>
-                    </tr>
-                }
-            </table>
+            <h5 class="card-title text-center">Ingredients</h5>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    @foreach (var item in Model.Ingredients)
+                    {
+                        <div class=" list-group-item">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="float-right" style="white-space: nowrap;">@(item.DisplayQuantityAndUom)</span>
+                                </div>
+                                <div class="col-9">
+                                    @(item.Name)
+                                    @if (item.Directions != null)
+                                    {
+                                        <span> - @(item.Directions)</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
     </div>
+
     <!-- Steps -->
     <div class="card">
         <div class="card-block">
-            <h5 class="card-title">Steps</h5>
-            <table class="table table-sm">
-                @foreach (var item in Model.Steps)
-                {
-                    @if (!String.IsNullOrEmpty(item))
+            <h5 class="card-title text-center">Steps</h5>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    @foreach (var item in Model.Steps)
                     {
-                        <tr>
-                            <td>@(item)</td>
-                        </tr>
+                        @if (!String.IsNullOrEmpty(item))
+                        {
+                            <div class="list-group-item">
+                                @(item)
+                            </div>
+                        }
                     }
-                }
-            </table>
+                </div>
+            </div>
         </div>
     </div>
 
