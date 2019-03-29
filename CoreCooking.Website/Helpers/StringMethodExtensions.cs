@@ -24,11 +24,10 @@ namespace CoreCooking.Website.Helpers
         /// <summary>
         /// Returns a copy of this string converted to HTML markup.
         /// </summary>
-        /// <param name="nofollow">If true, links are given "nofollow"
-        /// attribute</param>
+        /// <param name="nofollow">If true, links are given "nofollow"mattribute</param>
         public static string ToHtml(this string str, bool nofollow)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             int pos = 0;
             while (pos < str.Length)

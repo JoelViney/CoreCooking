@@ -45,8 +45,7 @@ namespace CoreCooking.Models.Users
                 item = null;
             }
 
-            return new LoginResult() { User = item, Success = success, Message = message };
-        
+            return new LoginResult() { User = item, Success = success, Message = message };        
         }
 
         public async Task<User> FindByNameAsync(string name)

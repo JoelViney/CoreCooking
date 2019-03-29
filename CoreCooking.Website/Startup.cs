@@ -42,11 +42,6 @@ namespace CoreCooking.Website
             // Add framework services.
             services.AddMvc();
 
-            //services.AddAuthentication("MyCookieAuthenticationScheme").AddCookie(options => 
-            //    {
-            //        options.AccessDeniedPath = "/accounts/login";
-            //        options.LoginPath = "/accounts/login";
-            //    });
             services.AddAuthentication("MyCookieAuthenticationScheme")
                 .AddCookie("MyCookieAuthenticationScheme", options =>
                 {

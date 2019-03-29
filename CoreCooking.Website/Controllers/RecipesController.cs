@@ -26,7 +26,7 @@ namespace CoreCooking.Website.Controllers
 
         public async Task<IActionResult> Details(string hashtag, string name)
         {
-            Guid recipeGuid = await this.GetRecipeGuid(name);
+            var recipeGuid = await this.GetRecipeGuid(name);
             
             var repository = new RecipeRepository(_settings.AzureStorageConnectionString);
             var item = await repository.GetAsync(recipeGuid);
@@ -63,25 +63,24 @@ namespace CoreCooking.Website.Controllers
         public async Task<IActionResult> Edit(RecipeEditViewModel viewModel)
         {
             Recipe item;
-            {
-                var repository = new RecipeRepository(_settings.AzureStorageConnectionString);
+            
+            var repository = new RecipeRepository(_settings.AzureStorageConnectionString);
 
-                if (viewModel.IsNew())
-                    item = new Recipe();
-                else
-                    item = await repository.GetAsync(viewModel.Guid);
+            if (viewModel.IsNew())
+                item = new Recipe();
+            else
+                item = await repository.GetAsync(viewModel.Guid);
 
-                viewModel.FillModel(item);
+            viewModel.FillModel(item);
 
-                await repository.SaveAsync(item);
-            }
-
+            await repository.SaveAsync(item);
+            
             return RedirectToAction("Details", "Recipes", new { hashtag = viewModel.Hashtag, name = item.Name });
         }
 
         public async Task<IActionResult> Delete(string hashtag, string name)
         {
-            Guid recipeGuid = await this.GetRecipeGuid(name);
+            var recipeGuid = await this.GetRecipeGuid(name);
             
             var repository = new RecipeRepository(_settings.AzureStorageConnectionString);
             var item = await repository.GetAsync(recipeGuid);

@@ -88,7 +88,7 @@ namespace CoreCooking.Models
             return list;
         }
 
-        #region Helpoer Methods...
+        #region Helper Methods...
 
         private string GetFileName(T item)
         {
