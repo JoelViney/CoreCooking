@@ -14,8 +14,9 @@ namespace CoreCooking.Models
     [TestClass]
     public class SystemTests
     {
-
-        // [TestMethod]
+        // This can be run manually to clean out all the dead images.
+        [Ignore]
+        [TestMethod]
         public async Task DeleteUnlinkedImages()
         {
             var siteRepository = new SiteRepository(SettingsFactory.GetConnectionString());

@@ -11,6 +11,8 @@ namespace CoreCooking.Parsers
         [TestMethod]
         public void Half()
         {
+            // Arrange
+            
             // Act
             Fraction fraction = FractionParser.RealToFraction(0.5M);
 
@@ -21,6 +23,8 @@ namespace CoreCooking.Parsers
         [TestMethod]
         public void Quarter()
         {
+            // Arrange
+
             // Act
             Fraction fraction = FractionParser.RealToFraction(0.25M);
 
@@ -33,6 +37,7 @@ namespace CoreCooking.Parsers
         public void Third()
         {
             // Arrange
+
             // Act
             Fraction fraction = FractionParser.RealToFraction(0.3333M);
 
@@ -44,6 +49,8 @@ namespace CoreCooking.Parsers
         [TestMethod]
         public void OneAndAHalf()
         {
+            // Arrange
+
             // Act
             Fraction fraction = FractionParser.RealToFraction(1.5M);
 
