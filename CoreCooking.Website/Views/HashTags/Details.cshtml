@@ -1,91 +1,87 @@
 @model CoreCooking.Website.ViewModels.Hashtags.HashtagDetailsViewModel
 @using CoreCooking.Website.Helpers
 
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item">@(Model.Name)</li>
-    </ol>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item">@(Model.Name)</li>
+</ol>
 
-    @if (User.Identity.IsAuthenticated)
-    {
-        <div class="card">
-            <div class="card-header">
-                <a class="btn btn-sm btn-wide btn-outline-primary float-right" href="@UrlBuilder.GetUrl(Model, "AddRecipe")">Add Recipe</a>
-            </div>
-        </div>
-    }
-    <p></p>
+<div class="container hashtag">
+    <div class="row">
+        <h1 class="col-9">@(Model.Name)</h1>
+        <div class="col-3">
 
-    <div class="container">
-        <div class="row">
-            <h1 class="hashtag col-9">@(Model.Name)</h1>
-            <div class="col-3">
-                @if (ViewBag.ViewIcons)
-                {
-                    <div class="btn-group col-3 float-right" role="group" style="margin-top: 5px;">
-                        <a class="btn btn-sm btn-secondary btn-view" href="@UrlBuilder.GetUrl(Model)?viewIcons=false">
-                            <i class="fa fa-list" aria-hidden="true"></i>
-                        </a>
-                        <button class="btn btn-sm btn-secondary btn-view-disabled">
-                            <i class="fa fa-th-large" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                }
-                else
-                {
-                    <div class="btn-group col-3 float-right" role="group" style="margin-top: 5px;">
-                        <div class="btn btn-sm btn-secondary btn-list-toggle btn-view-disabled" disabled>
-                            <i class="fa fa-list" aria-hidden="true"></i>
-                        </div>
-                        <a class="btn btn-sm btn-secondary btn-list-toggle btn-view" href="@UrlBuilder.GetUrl(Model)?viewIcons=true">
-                            <i class="fa fa-th-large" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
-
-    <p></p>
-
-    @if (ViewBag.ViewIcons)
-    {
-        <div class="card-columns">
-            @foreach (var item in Model.Lines)
+            @if (ViewBag.ViewIcons)
             {
-                <a href="@UrlBuilder.GetUrl(Model, item)">
-                    <div class="card">
-                        @if (item.ImageUrl != null)
-                    {
-                            <img class="card-img img-fluid" src="@Url.Content(item.ImageUrl)" alt="Image of @Url.Content(item.Name)">
-                            <div class="card-img-overlay" style="padding-top: 5ex;">
-                                <h5 class="card-title text-white text-center">@Html.DisplayFor(x => item.Name)</h5>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="card-block jumbotron" style="background-color: Gainsboro; color: black; padding-top: 3ex; padding-bottom: 4ex; margin-bottom: 0px;">
-                                <h5 class="card-title text-center">@Html.DisplayFor(x => item.Name)</h5>
-                            </div>
-                        }
+                <div class="btn-group float-right" role="group">
+                    <a class="btn btn-sm btn-secondary btn-view" href="@UrlBuilder.GetUrl(Model)?viewIcons=false">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                    </a>
+                    <button class="btn btn-sm btn-secondary btn-view-disabled">
+                        <i class="fa fa-th-large" aria-hidden="true"></i>
+                    </button>
+                </div>
+            }
+            else
+            {
+                <div class="btn-group float-right" role="group">
+                    <div class="btn btn-sm btn-secondary btn-list-toggle btn-view-disabled" disabled>
+                        <i class="fa fa-list" aria-hidden="true"></i>
                     </div>
-                </a>
+                    <a class="btn btn-sm btn-secondary btn-list-toggle btn-view" href="@UrlBuilder.GetUrl(Model)?viewIcons=true">
+                        <i class="fa fa-th-large" aria-hidden="true"></i>
+                    </a>
+                </div>
+            }
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a class="btn btn-sm btn-wide btn-outline-primary float-right mr-2" href="@UrlBuilder.GetUrl(Model, "AddRecipe")">Add Recipe</a>
             }
         </div>
-    }
-    else
-    {
-        <div class="row">
-            <div class="col-12">
-                <ul class="list-group">
-                    @foreach (var item in Model.Lines)
+    </div>
+</div>
+
+<p></p>
+
+@if (ViewBag.ViewIcons)
+{
+    <div class="card-columns">
+        @foreach (var item in Model.Lines)
+        {
+            <a href="@UrlBuilder.GetUrl(Model, item)">
+                <div class="card">
+                    @if (item.ImageUrl != null)
                     {
-                        <li class="list-group-item">
-                            <a href="@UrlBuilder.GetUrl(Model, item)">@Html.DisplayFor(x => item.Name)</a>
-                        </li>
+                        <img class="card-img img-fluid" src="@Url.Content(item.ImageUrl)" alt="Image of @Url.Content(item.Name)">
+                        <div class="card-img-overlay" style="padding-top: 5ex;">
+                            <h5 class="card-title text-white text-center">@Html.DisplayFor(x => item.Name)</h5>
+                        </div>
                     }
-                </ul>
-            </div>
+                    else
+                    {
+                        <div class="card-block jumbotron" style="background-color: Gainsboro; color: black; padding-top: 3ex; padding-bottom: 4ex; margin-bottom: 0px;">
+                            <h5 class="card-title text-center">@Html.DisplayFor(x => item.Name)</h5>
+                        </div>
+                    }
+                </div>
+            </a>
+        }
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-12">
+            <ul class="list-group">
+                @foreach (var item in Model.Lines)
+                {
+                    <li class="list-group-item">
+                        <a href="@UrlBuilder.GetUrl(Model, item)">@Html.DisplayFor(x => item.Name)</a>
+                    </li>
+                }
+            </ul>
         </div>
-    }
+    </div>
+}
 

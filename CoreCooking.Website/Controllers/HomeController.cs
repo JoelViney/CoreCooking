@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using CoreCooking.Website.ViewModels.Recipes;
+﻿using CoreCooking.Models.Sites;
 using CoreCooking.Website.Models;
-using Microsoft.Extensions.Options;
-using CoreCooking.Models.Sites;
 using CoreCooking.Website.ViewModels.Home;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace CoreCooking.Website.Controllers
 {
     public class HomeController : Controller
     {
-        private Settings _settings;
+        private readonly Settings _settings;
 
         public HomeController(IOptions<Settings> settings)
         {

@@ -1,6 +1,7 @@
 # Core Cooking
 
-This is a simple cooking recipe website using .Net Core 2.0. It uses Azure storage as the datastore by storing json files. This is done so it can be hosted for free. (I am already using my free azure mobile database for another project).
+This is a simple cooking recipe website using .Net Core 2.0. It uses Azure storage as the datastore by storing json files. 
+This is done so it can be hosted for free. (I am already using my free azure mobile database for another project).
 
 It was written to explore Asp.net Core MVC and Boostrap 4.
 

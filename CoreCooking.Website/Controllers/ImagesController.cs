@@ -1,20 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using CoreCooking.Models.Images;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Net.Http.Headers;
-using System.IO;
 using CoreCooking.Website.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace CoreCooking.Website.Controllers
 {
     public class ImagesController : Controller
     {
-        private Settings _settings;
+        private readonly Settings _settings;
 
         public ImagesController(IOptions<Settings> settings)
         {

@@ -2,10 +2,7 @@
 using CoreCooking.Website.ViewModels.Home;
 using CoreCooking.Website.ViewModels.Recipes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace CoreCooking.Website.Helpers
 {

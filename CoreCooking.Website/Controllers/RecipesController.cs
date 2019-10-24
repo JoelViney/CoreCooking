@@ -1,23 +1,20 @@
+using CoreCooking.Models.Recipes;
+using CoreCooking.Models.Sites;
+using CoreCooking.Website.Helpers;
+using CoreCooking.Website.Models;
+using CoreCooking.Website.ViewModels.Home;
+using CoreCooking.Website.ViewModels.Recipes;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using CoreCooking.Models;
-using CoreCooking.Website.ViewModels.Recipes;
-using CoreCooking.Models.Recipes;
-using CoreCooking.Website.Models;
-using Microsoft.Extensions.Options;
-using CoreCooking.Website.Helpers;
-using CoreCooking.Models.Sites;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using CoreCooking.Website.ViewModels.Home;
 
 namespace CoreCooking.Website.Controllers
 {
     public class RecipesController : Controller
     {
-        private Settings _settings;
+        private readonly Settings _settings;
 
         public RecipesController(IOptions<Settings> settings)
         {

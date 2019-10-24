@@ -1,14 +1,11 @@
-﻿using CoreCooking.Parsers;
+﻿using CoreCooking.Data;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
-using CoreCooking.Data;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Formats;
-using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace CoreCooking.Models.Images
 {
@@ -17,7 +14,7 @@ namespace CoreCooking.Models.Images
         public const int MaxWidth = 800;
         public const int MaxHeight = 600;
 
-        private AzureFileManager _fileManager;
+        private readonly AzureFileManager _fileManager;
 
         public ImageRepository(string connectionString)
         {

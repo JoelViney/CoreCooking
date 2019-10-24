@@ -1,14 +1,27 @@
-﻿/* Bootstrap 4 Fix: The fixed navbar will overlay your other content, unless you add padding to the top of the body. */
+﻿/*
+    Style modifications
+*/
 body {
-    padding-bottom: 50px
+    background: #fafafa;
+    font-family: Roboto, sans-serif;
+    padding-bottom: 50px;
+}
+
+.breadcrumb {
+    background: white;
+}
+
+.jumbotron {
+    background: white;
+    color: rgba(0,0,0,0.54);
 }
 
 h1.hashtag, h2.recipe {
-    font-family: 'Avant Garde', Arial;
+    font-family: Roboto, sans-serif;
     font-weight: 300;
 }
 
-/* Bootstrap4 decided that buttons don't need hand cursors. */
+/* Bootstrap 4 decided that buttons don't need hand cursors. */
 .btn-hand {
     cursor: pointer;
     cursor: hand;

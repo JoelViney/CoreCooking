@@ -1,8 +1,6 @@
 ﻿using CoreCooking.Parsers;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CoreCooking.Models.Recipes
 {

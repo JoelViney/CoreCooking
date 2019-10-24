@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CoreCooking.Website.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-using CoreCooking.Website.Models;
-using Microsoft.Extensions.Configuration.UserSecrets;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CoreCooking.Website
 {
@@ -75,15 +67,6 @@ namespace CoreCooking.Website
 
             app.UseMvc(routes =>
             {
-                //
-                // /Test
-                //
-                routes.MapRoute(
-                    name: "test",
-                    template: "Test",
-                    defaults: new { controller = "Test", action = "Index" }
-                    );
-
                 //
                 // /Image
                 //

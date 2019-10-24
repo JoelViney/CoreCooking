@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CoreCooking.Models.Sites;
 using CoreCooking.Website.ViewModels.Recipes;
-using CoreCooking.Models.Sites;
+using System.Collections.Generic;
 
 namespace CoreCooking.Website.ViewModels.Hashtags
 {

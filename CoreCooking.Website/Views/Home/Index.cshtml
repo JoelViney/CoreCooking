@@ -5,23 +5,16 @@
     ViewData["Title"] = "Home Page";
 }
 
-<ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
-</ol>
-
 @if (User.Identity.IsAuthenticated)
 {
-    <div class="card">
-        <div class="card-header">
-            <span>@(Model.RecipeCount) Recipes Total</span>            
+    <div class="jumbotron">
+        <p class="lead">There are @(Model.RecipeCount) recipes</p>
 
-            <a asp-controller="Recipes" asp-action="Add" class="btn btn-sm btn-wide btn-outline-primary float-right">Add Recipe</a>
-        </div>
+        <a asp-controller="Recipes" asp-action="Add" class="btn btn-primary">Add Recipe</a>
     </div>
-    <p></p>
 }
 
-<div class="list-group">
+<div class="list-group mt-2">
     @foreach (var item in Model.Hashtags)
     {
         <a class="list-group-item" href="@UrlBuilder.GetUrl(item)">

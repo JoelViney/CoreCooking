@@ -1,10 +1,8 @@
-﻿using CoreCooking.Parsers;
+﻿using CoreCooking.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using CoreCooking.Data;
 
 namespace CoreCooking.Models
 {
@@ -17,7 +15,7 @@ namespace CoreCooking.Models
 
         #region Constructors...
 
-        public RepositoryBase(string connectionString, string containerPath)
+        protected RepositoryBase(string connectionString, string containerPath)
         {
             this.ConnectionString = connectionString;
             this._fileManager = new AzureFileManager(this.ConnectionString, containerPath);

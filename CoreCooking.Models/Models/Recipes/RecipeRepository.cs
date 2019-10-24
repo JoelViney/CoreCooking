@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Linq;
-using CoreCooking.Models.Images;
-using System.IO;
+﻿using CoreCooking.Models.Images;
 using CoreCooking.Models.Sites;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CoreCooking.Models.Recipes
 {

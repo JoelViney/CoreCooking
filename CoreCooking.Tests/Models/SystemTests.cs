@@ -1,12 +1,7 @@
 ﻿using CoreCooking.Data;
 using CoreCooking.Models.Images;
-using CoreCooking.Models.Recipes;
 using CoreCooking.Models.Sites;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CoreCooking.Models

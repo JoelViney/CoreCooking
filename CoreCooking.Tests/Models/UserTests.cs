@@ -1,11 +1,9 @@
 ﻿using CoreCooking.Data;
 using CoreCooking.Models.Users;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CoreCooking.Models
 {

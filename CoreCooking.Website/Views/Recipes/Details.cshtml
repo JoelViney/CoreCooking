@@ -9,16 +9,13 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    <nav class="card">
-        <div class="card-header">
-
-            <div class="btn-group float-right" role="group">
-                <a class="btn btn-sm btn-wide btn-outline-primary" href="@UrlBuilder.GetUrl(Model.Hashtag, "AddRecipe")">Add Recipe</a>
-                <a class="btn btn-sm btn-wide btn-outline-primary" href="@UrlBuilder.GetUrl(Model, "Edit")">Edit Recipe</a>
-            </div>
+    <div class="container hashtag">
+        <div class="btn-group float-right" role="group">
+            <a class="btn btn-sm btn-wide btn-outline-primary" href="@UrlBuilder.GetUrl(Model.Hashtag, "AddRecipe")">Add Recipe</a>
+            <a class="btn btn-sm btn-wide btn-outline-primary" href="@UrlBuilder.GetUrl(Model, "Edit")">Edit Recipe</a>
         </div>
-    </nav>
-}
+    </div>
+    }
 
 <p>
     <h1 class="recipe">@(Model.Name)</h1>
@@ -27,7 +24,7 @@
 <p>
     <h5>
         @foreach (var hashtag in Model.Hashtags)
-            {
+        {
             <a href="@UrlBuilder.GetUrl(hashtag)">#@hashtag</a><span>&nbsp;</span>
         }
     </h5>

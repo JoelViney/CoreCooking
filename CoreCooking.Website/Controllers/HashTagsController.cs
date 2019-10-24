@@ -1,22 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using CoreCooking.Models;
-using CoreCooking.Models.Recipes;
-using CoreCooking.Website.ViewModels.Recipes;
-using CoreCooking.Website.Models;
-using Microsoft.Extensions.Options;
-using CoreCooking.Website.Helpers;
 using CoreCooking.Models.Sites;
+using CoreCooking.Website.Models;
 using CoreCooking.Website.ViewModels.Hashtags;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace CoreCooking.Website.Controllers
 {
     public class HashtagsController : Controller
     {
-        private Settings _settings;
+        private readonly Settings _settings;
         
         #region Constructors...
 

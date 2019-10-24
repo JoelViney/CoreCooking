@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 namespace CoreCooking.Website.Helpers
 {
     public static class StringMethodExtensions
     {
-        private static string _paraBreak = "\r\n\r\n";
-        private static string _link = "<a href=\"{0}\">{1}</a>";
-        private static string _linkNoFollow = "<a href=\"{0}\" rel=\"nofollow\">{1}</a>";
+        private const string ParaBreak = "\r\n\r\n";
+        private const string Link = "<a href=\"{0}\">{1}</a>";
+        private const string LinkNoFollow = "<a href=\"{0}\" rel=\"nofollow\">{1}</a>";
 
         /// <summary>
         /// Returns a copy of this string converted to HTML markup.
@@ -34,7 +30,7 @@ namespace CoreCooking.Website.Helpers
             {
                 // Extract next paragraph
                 int start = pos;
-                pos = str.IndexOf(_paraBreak, start);
+                pos = str.IndexOf(ParaBreak, start);
                 if (pos < 0)
                     pos = str.Length;
                 string para = str.Substring(start, pos - start).Trim();
@@ -44,7 +40,7 @@ namespace CoreCooking.Website.Helpers
                     EncodeParagraph(para, sb, nofollow);
 
                 // Skip over paragraph break
-                pos += _paraBreak.Length;
+                pos += ParaBreak.Length;
             }
 
             // Return result
@@ -119,7 +115,7 @@ namespace CoreCooking.Website.Helpers
                         link = label;
                     }
                     // Append link
-                    sb.Append(String.Format(nofollow ? _linkNoFollow : _link, link, label));
+                    sb.Append(String.Format(nofollow ? LinkNoFollow : Link, link, label));
 
                     // Skip over closing "]]"
                     pos += 2;

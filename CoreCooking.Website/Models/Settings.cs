@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CoreCooking.Website.Models
+﻿namespace CoreCooking.Website.Models
 {
     public class Settings
     {

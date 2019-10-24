@@ -1,15 +1,12 @@
 ﻿using CoreCooking.Data;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CoreCooking.Models.Sites
 {
     public class SiteRepository
     {
-        private AzureFileManager _fileManager;
+        private readonly AzureFileManager _fileManager;
 
         public SiteRepository(string connectionString)
         {

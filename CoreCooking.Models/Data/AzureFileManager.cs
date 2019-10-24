@@ -3,7 +3,6 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CoreCooking.Data
@@ -13,14 +12,15 @@ namespace CoreCooking.Data
     /// </summary>
     public class AzureFileManager
     {
+        private readonly string _connectionString;
+
         public string ContainerPath { get; set; }
-        private string ConnectionString { get; set; }
 
         #region Constructors...
 
         public AzureFileManager(string connectionString, string containerPath)
         {
-            this.ConnectionString = connectionString;
+            _connectionString = connectionString;
             this.ContainerPath = containerPath;
         }
 
@@ -111,7 +111,6 @@ namespace CoreCooking.Data
             return null;
         }
 
-
         public async Task<Stream> GetStreamFileAsync(string fileName)
         {
             CloudBlobContainer container = await this.GetContainerAsync();
@@ -122,7 +121,6 @@ namespace CoreCooking.Data
             if (await blockBlob.ExistsAsync())
             {
                 await blockBlob.DownloadToStreamAsync(stream);
-                long streamlen = stream.Length;
                 stream.Position = 0;
             }
 
@@ -142,8 +140,6 @@ namespace CoreCooking.Data
 
 
 
-
-
         /// <summary>
         /// Returns the container that is used for all of the file interactions.
         /// </summary>
@@ -152,7 +148,7 @@ namespace CoreCooking.Data
         {
             // Retrieve storage account information from connection string
             // How to create a storage connection string - http://msdn.microsoft.com/en-us/library/azure/ee758697.aspx
-            CloudStorageAccount storageAccount = CreateStorageAccountFromConnectionString(this.ConnectionString);
+            CloudStorageAccount storageAccount = CreateStorageAccountFromConnectionString(this._connectionString);
 
             // Create a blob client for interacting with the blob service.
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
@@ -204,7 +200,5 @@ namespace CoreCooking.Data
 
             return storageAccount;
         }
-
-
     }
 }

@@ -1,4 +1,3 @@
-using CoreCooking.Models;
 using CoreCooking.Models.Users;
 using CoreCooking.Website.Models;
 using CoreCooking.Website.ViewModels.Accounts;
@@ -14,7 +13,7 @@ namespace CoreCooking.Website.Controllers
 {
     public class AccountsController : Controller
     {
-        private Settings _settings;
+        private readonly Settings _settings;
 
         public AccountsController(IOptions<Settings> settings)
         {
