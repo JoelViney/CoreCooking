@@ -11,7 +11,6 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
-    <None Remove="appsettings.UserSecrets.json" />
     <None Remove="Data\Images\600x400.bmp" />
     <None Remove="Data\Images\600x400.jpg" />
     <None Remove="Data\Images\600x400.png" />
@@ -25,9 +24,6 @@
 
   <ItemGroup>
     <Content Include="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="appsettings.UserSecrets.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Images\600x400.jpg">
