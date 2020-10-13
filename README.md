@@ -24,3 +24,7 @@ Technologies used:
 
 2. Populate this file with a link to the azure storage datastore.
 
+
+
+
+> https://docs.microsoft.com/en-us/aspnet/core/fundamentals/static-files?view=aspnetcore-3.1

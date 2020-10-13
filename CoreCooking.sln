@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCooking.Models", "CoreCooking.Models\CoreCooking.Models.csproj", "{0CCE4BA1-7143-4749-93BD-5CD0B347C412}"
 EndProject
@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCooking.API", "CoreCooking.API\CoreCooking.API.csproj", "{5903EED0-B9A6-4CC5-960A-8A42964B2C03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{3453A1FA-D215-49E0-880C-2A7F6534F6B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3453A1FA-D215-49E0-880C-2A7F6534F6B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3453A1FA-D215-49E0-880C-2A7F6534F6B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5903EED0-B9A6-4CC5-960A-8A42964B2C03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5903EED0-B9A6-4CC5-960A-8A42964B2C03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5903EED0-B9A6-4CC5-960A-8A42964B2C03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5903EED0-B9A6-4CC5-960A-8A42964B2C03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
