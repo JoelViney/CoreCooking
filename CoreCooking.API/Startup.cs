@@ -1,34 +1,38 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
-namespace CoreCooking.API
+namespace CoreCooking.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IConfiguration _configuration;
+        private readonly IHostEnvironment _hostEnvironment;
+
+        #region Constructors...
+
+        public Startup(IConfiguration configuration, IHostEnvironment hostEnvironment)
         {
-            Configuration = configuration;
+            _configuration = configuration;
+            _hostEnvironment = hostEnvironment;
         }
 
-        public IConfiguration Configuration { get; }
+        #endregion
+
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CoreCooking.Api", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,36 +41,11 @@ namespace CoreCooking.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoreCooking.Api v1"));
             }
 
             app.UseHttpsRedirection();
-
-            //=================================================================
-            // STATIC FILES
-            // For the wwwroot angular folder
-
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")),
-                RequestPath = ""
-            });
-
-            var cachePeriod = env.IsDevelopment() ? "600" : "604800";
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                OnPrepareResponse = ctx =>
-                {
-                    // Requires the following import:
-                    // using Microsoft.AspNetCore.Http;
-                    ctx.Context.Response.Headers.Append("Cache-Control", $"public, max-age={cachePeriod}");
-                }
-            });
-
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
-
-            //=================================================================
-            // MISC
 
             app.UseRouting();
 

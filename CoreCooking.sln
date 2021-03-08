@@ -7,12 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCooking.Models", "CoreC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCooking.Tests", "CoreCooking.Tests\CoreCooking.Tests.csproj", "{161F4382-E194-483E-B962-0829AAB1A872}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCooking.Website", "CoreCooking.Website\CoreCooking.Website.csproj", "{3453A1FA-D215-49E0-880C-2A7F6534F6B3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{AB41030B-4725-4BE2-8D36-04EFD9E1C2B9}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCooking.Api", "CoreCooking.Api\CoreCooking.Api.csproj", "{AAEE0601-FEC4-4CBF-AF6C-C08E58D9F089}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCooking.Domain", "CoreCooking.Domain\CoreCooking.Domain.csproj", "{54F64084-BD7B-481D-880B-A631D0FD8E36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +30,14 @@ Global
 		{161F4382-E194-483E-B962-0829AAB1A872}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{161F4382-E194-483E-B962-0829AAB1A872}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{161F4382-E194-483E-B962-0829AAB1A872}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3453A1FA-D215-49E0-880C-2A7F6534F6B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3453A1FA-D215-49E0-880C-2A7F6534F6B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3453A1FA-D215-49E0-880C-2A7F6534F6B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3453A1FA-D215-49E0-880C-2A7F6534F6B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAEE0601-FEC4-4CBF-AF6C-C08E58D9F089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAEE0601-FEC4-4CBF-AF6C-C08E58D9F089}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAEE0601-FEC4-4CBF-AF6C-C08E58D9F089}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAEE0601-FEC4-4CBF-AF6C-C08E58D9F089}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54F64084-BD7B-481D-880B-A631D0FD8E36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54F64084-BD7B-481D-880B-A631D0FD8E36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54F64084-BD7B-481D-880B-A631D0FD8E36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54F64084-BD7B-481D-880B-A631D0FD8E36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

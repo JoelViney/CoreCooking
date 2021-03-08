@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoreCooking.Models.Recipes
 {
@@ -35,10 +36,10 @@ namespace CoreCooking.Models.Recipes
 
         public string Notes { get; set; }
 
-        [JsonIgnore]
+        [JsonIgnore, NotMapped]
         public List<Ingredient> Ingredients { get; set; }
 
-        [JsonIgnore]
+        [JsonIgnore, NotMapped]
         public List<string> Steps { get; set; }
 
         /// <summary>Generates the Ingredients and Steps</summary>

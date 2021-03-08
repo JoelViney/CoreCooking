@@ -1,6 +1,6 @@
 using System;
 
-namespace CoreCooking.API
+namespace CoreCooking.Api
 {
     public class WeatherForecast
     {
